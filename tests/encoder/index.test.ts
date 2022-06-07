@@ -11,7 +11,7 @@ describe('createEncoder', () => {
 
     try {
       encoder.encode(data, 'application/json');
-      fail('Excpected error');
+      fail('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
         `[Error: Unsupported contentType "application/json", supported contentTypes are "".]`,

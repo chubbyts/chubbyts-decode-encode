@@ -28,12 +28,4 @@ describe('createUrlEncodedTypeEncoder', () => {
 
     expect(encoder.encode({ data: [] })).toMatchInlineSnapshot(`""`);
   });
-
-  test('key which needs to be encoded', () => {
-    const encoder = createUrlEncodedTypeEncoder();
-
-    expect(encoder.contentType).toBe('application/x-www-form-urlencoded');
-
-    expect(encoder.encode({ ää: 'value' })).toMatchInlineSnapshot(`"%C3%A4%C3%A4=value"`);
-  });
 });

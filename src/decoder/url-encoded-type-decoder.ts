@@ -1,8 +1,18 @@
 import { TypeDecoder } from '.';
-import { Data } from '..';
-import { set } from 'object-path';
+import { Data, isArray, isObject, isString } from '..';
+import { parse } from 'qs';
 
-const optimizeValue = (value: string) => {
+type ParsedValue = { [key: string]: ParsedValue } | Array<ParsedValue> | string;
+
+const decodeValue = (value: ParsedValue): Data => {
+  if (isObject(value)) {
+    return Object.fromEntries(Object.entries(value).map(([subKey, subValue]) => [subKey, decodeValue(subValue)]));
+  }
+
+  if (isArray(value)) {
+    return value.map(decodeValue);
+  }
+
   if (value === 'null') {
     return null;
   }
@@ -32,18 +42,7 @@ const optimizeValue = (value: string) => {
 
 export const createUrlEncodedTypeDecoder = (): TypeDecoder => {
   const decode = (encodedData: string): Data => {
-    let data = {};
-
-    encodedData.split('&').forEach((keyValue) => {
-      const [rawKey, rawValue] = keyValue.split('=');
-      const key = decodeURIComponent(
-        rawKey.replace(/\[[^\]]+\]/gm, (match) => `.${(match.match(/[^\[\]]+/) as RegExpMatchArray)[0]}`),
-      );
-      const value = optimizeValue(decodeURIComponent(rawValue));
-      set(data, key, value);
-    });
-
-    return data;
+    return decodeValue(parse(encodedData, { depth: 100 }) as ParsedValue);
   };
 
   const contentType = 'application/x-www-form-urlencoded';

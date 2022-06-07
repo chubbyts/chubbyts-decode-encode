@@ -25,7 +25,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 
  * node: 14
  * [fast-xml-parser][2]: ^4.0.8
- * [object-path][3]: ^0.11.8
+ * [qs][3]: ^6.10.5
  * [yaml][4]: ^2.1.1
 
 ## Installation
@@ -33,7 +33,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^1.0.1
+npm i @chubbyts/chubbyts-decode-encode@^1.0.2
 ```
 
 ## Usage
@@ -178,5 +178,5 @@ Dominik Zogg 2022
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-decode-encode
 [2]: https://www.npmjs.com/package/fast-xml-parser
-[3]: https://www.npmjs.com/package/object-path
+[3]: https://www.npmjs.com/package/qs
 [4]: https://www.npmjs.com/package/yaml

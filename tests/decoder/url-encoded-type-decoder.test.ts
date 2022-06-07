@@ -14,16 +14,4 @@ describe('createUrlEncodedTypeDecoder', () => {
       ),
     ).toEqual(data);
   });
-
-  test('key which needs to be encoded', () => {
-    const decoder = createUrlEncodedTypeDecoder();
-
-    expect(decoder.contentType).toBe('application/x-www-form-urlencoded');
-
-    expect(decoder.decode('%C3%A4%C3%A4=value')).toMatchInlineSnapshot(`
-      Object {
-        "ää": "value",
-      }
-    `);
-  });
 });
