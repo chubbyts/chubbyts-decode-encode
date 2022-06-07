@@ -18,7 +18,7 @@ const getValueAsString = (value: null | boolean | number | string): string => {
 };
 
 const getKeyValue = (path: string, key: string, value: Data) => {
-  const subPath = '' !== path ? path + '[' + key + ']' : key;
+  const subPath = '' !== path ? path + '[' + encodeURIComponent(key) + ']' : encodeURIComponent(key);
 
   if (isObject(value) || isArray(value)) {
     const queryPart = buildQuery(value, subPath);

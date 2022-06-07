@@ -33,7 +33,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^1.0.0
+npm i @chubbyts/chubbyts-decode-encode@^1.0.1
 ```
 
 ## Usage

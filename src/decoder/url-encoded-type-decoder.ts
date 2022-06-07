@@ -36,7 +36,9 @@ export const createUrlEncodedTypeDecoder = (): TypeDecoder => {
 
     encodedData.split('&').forEach((keyValue) => {
       const [rawKey, rawValue] = keyValue.split('=');
-      const key = rawKey.replace(/\[[^\]]+\]/gm, (match) => `.${(match.match(/[^\[\]]+/) as RegExpMatchArray)[0]}`);
+      const key = decodeURIComponent(
+        rawKey.replace(/\[[^\]]+\]/gm, (match) => `.${(match.match(/[^\[\]]+/) as RegExpMatchArray)[0]}`),
+      );
       const value = optimizeValue(decodeURIComponent(rawValue));
       set(data, key, value);
     });
