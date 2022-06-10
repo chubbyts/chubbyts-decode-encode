@@ -1,6 +1,6 @@
 import { Data } from '..';
 
-export class EncoderError extends Error {}
+export class EncodeError extends Error {}
 
 export type TypeEncoder = { encode: (data: Data) => string; contentType: string };
 

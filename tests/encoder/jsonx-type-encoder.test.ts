@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { Data } from '../../src';
-import { EncoderError } from '../../src/encoder';
+import { EncodeError } from '../../src/encoder';
 import { createJsonxTypeEncoder } from '../../src/encoder/jsonx-type-encoder';
 import data from '../data';
 
@@ -580,7 +580,7 @@ describe('createJsonxTypeEncoder', () => {
       encoder.encode(invalidData);
       fail('Expected error');
     } catch (e) {
-      expect(e).toBeInstanceOf(EncoderError);
+      expect(e).toBeInstanceOf(EncodeError);
       expect(e).toMatchInlineSnapshot(`[Error: Unsupported value: "2022-06-06T16:07:34.505Z"]`);
     }
   });

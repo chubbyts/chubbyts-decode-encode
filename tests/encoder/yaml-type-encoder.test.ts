@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { Data } from '../../src';
-import { EncoderError } from '../../src/encoder';
+import { EncodeError } from '../../src/encoder';
 import { createYamlTypeEncoder } from '../../src/encoder/yaml-type-encoder';
 import data from '../data';
 

@@ -1,4 +1,4 @@
-import { EncoderError, TypeEncoder } from '.';
+import { EncodeError, TypeEncoder } from '.';
 import { Data, isArray, isBoolean, isNumber, isObject, isString, isNull } from '..';
 import {
   DATATYPE_ARRAY,
@@ -217,7 +217,7 @@ export const createJsonxTypeEncoder = (prettyPrint: boolean = false): TypeEncode
     } catch (e) {
       const error = throwableToError(e);
 
-      const decodeError = new EncoderError(error.message);
+      const decodeError = new EncodeError(error.message);
       decodeError.stack = error.stack;
 
       throw decodeError;

@@ -1,6 +1,6 @@
 {
   "name": "@chubbyts/chubbyts-decode-encode",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.",
   "keywords": [
     "chubbyts",
