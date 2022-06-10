@@ -16,8 +16,6 @@ describe('createJsonTypeEncoder', () => {
   test('prettyPrint: true', async () => {
     const encoder = createJsonTypeEncoder(true);
 
-    expect(encoder.contentType).toBe('application/json');
-
     expect(encoder.encode(data)).toMatchInlineSnapshot(`
       "{
           \\"page\\": 1,

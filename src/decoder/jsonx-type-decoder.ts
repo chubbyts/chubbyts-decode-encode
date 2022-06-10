@@ -1,4 +1,4 @@
-import { TypeDecoder } from '.';
+import { DecodeError, TypeDecoder } from '.';
 import { Data } from '..';
 import { XMLParser } from 'fast-xml-parser';
 import {
@@ -17,6 +17,7 @@ import {
   JsonxNode,
   WithName,
 } from '../jsonx-datatypes';
+import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
 
 const decodeHtmlEntities = (string: string) =>
   string.replace(/&#\d+;/gm, (code) =>
@@ -105,10 +106,18 @@ const convertObjectNode = (node: JsonxObjectNode): Record<string, Data> => {
 
 export const createJsonxTypeDecoder = (): TypeDecoder => {
   const decode = (encodedData: string): Data => {
-    const parser = new XMLParser({ preserveOrder: true, ignoreAttributes: false, htmlEntities: false });
-    const parsedData = parser.parse(encodedData);
+    try {
+      const parser = new XMLParser({ preserveOrder: true, ignoreAttributes: false, htmlEntities: false });
 
-    return convertNode(parsedData[1]);
+      return convertNode(parser.parse(encodedData)[1]);
+    } catch (e) {
+      const error = throwableToError(e);
+
+      const decodeError = new DecodeError(error.message);
+      decodeError.stack = error.stack;
+
+      throw decodeError;
+    }
   };
 
   const contentType = 'application/jsonx+xml';

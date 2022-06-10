@@ -24,16 +24,17 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * node: 14
- * [fast-xml-parser][2]: ^4.0.8
- * [qs][3]: ^6.10.5
- * [yaml][4]: ^2.1.1
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^1.0.0
+ * [fast-xml-parser][3]: ^4.0.8
+ * [qs][4]: ^6.10.5
+ * [yaml][5]: ^2.1.1
 
 ## Installation
 
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^1.0.2
+npm i @chubbyts/chubbyts-decode-encode@^1.0.3
 ```
 
 ## Usage
@@ -177,6 +178,7 @@ const contentType = yamlTypeEncoder.contentType;
 Dominik Zogg 2022
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-decode-encode
-[2]: https://www.npmjs.com/package/fast-xml-parser
-[3]: https://www.npmjs.com/package/qs
-[4]: https://www.npmjs.com/package/yaml
+[2]: https://www.npmjs.com/package/@chubbyts/chubbyts-throwable-to-error
+[3]: https://www.npmjs.com/package/fast-xml-parser
+[4]: https://www.npmjs.com/package/qs
+[5]: https://www.npmjs.com/package/yaml

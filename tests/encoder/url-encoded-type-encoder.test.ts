@@ -16,15 +16,11 @@ describe('createUrlEncodedTypeEncoder', () => {
   test('empty object', () => {
     const encoder = createUrlEncodedTypeEncoder();
 
-    expect(encoder.contentType).toBe('application/x-www-form-urlencoded');
-
     expect(encoder.encode({ data: {} })).toMatchInlineSnapshot(`""`);
   });
 
   test('empty array', () => {
     const encoder = createUrlEncodedTypeEncoder();
-
-    expect(encoder.contentType).toBe('application/x-www-form-urlencoded');
 
     expect(encoder.encode({ data: [] })).toMatchInlineSnapshot(`""`);
   });

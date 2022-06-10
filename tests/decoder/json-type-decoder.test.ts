@@ -1,4 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
+import { DecodeError } from '../../src/decoder';
 import { createJsonTypeDecoder } from '../../src/decoder/json-type-decoder';
 import data from '../data';
 
@@ -175,5 +176,16 @@ describe('createJsonTypeDecoder', () => {
         "_type": "search"
     }`),
     ).toEqual(data);
+  });
+
+  test('syntax error', () => {
+    const decoder = createJsonTypeDecoder();
+
+    try {
+      decoder.decode('{');
+      fail('Expected error');
+    } catch (e) {
+      expect(e).toBeInstanceOf(DecodeError);
+    }
   });
 });

@@ -1,9 +1,10 @@
 import { describe, expect, test } from '@jest/globals';
+import { DecodeError } from '../../src/decoder';
 import { createYamlTypeDecoder } from '../../src/decoder/yaml-type-decoder';
 import data from '../data';
 
 describe('createYamlTypeDecoder', () => {
-  test('data', () => {
+  test('with data', () => {
     const decoder = createYamlTypeDecoder();
 
     expect(decoder.contentType).toBe('application/x-yaml');
@@ -132,5 +133,16 @@ _links:
         method: POST
 _type: search`),
     ).toEqual(data);
+  });
+
+  test('syntax error', () => {
+    const decoder = createYamlTypeDecoder();
+
+    try {
+      decoder.decode('key: value: value');
+      fail('Expected error');
+    } catch (e) {
+      expect(e).toBeInstanceOf(DecodeError);
+    }
   });
 });

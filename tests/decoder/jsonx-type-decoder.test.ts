@@ -1,4 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
+import { DecodeError } from '../../src/decoder';
 import { createJsonxTypeDecoder } from '../../src/decoder/jsonx-type-decoder';
 import data from '../data';
 
@@ -329,8 +330,6 @@ A f&#228;ncy Name
   test('with another data set', () => {
     const decoder = createJsonxTypeDecoder();
 
-    expect(decoder.contentType).toBe('application/jsonx+xml');
-
     expect(
       decoder.decode(`<?xml version="1.0" encoding="UTF-8"?>
       <json:array xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx">
@@ -592,8 +591,6 @@ A f&#228;ncy Name
   test('unsupported without name', () => {
     const decoder = createJsonxTypeDecoder();
 
-    expect(decoder.contentType).toBe('application/jsonx+xml');
-
     try {
       decoder.decode(`<?xml version="1.0" encoding="UTF-8"?><json:array><aaa></aaa></json:array>`);
       fail('Expected error');
@@ -605,13 +602,22 @@ A f&#228;ncy Name
   test('unsupported with name', () => {
     const decoder = createJsonxTypeDecoder();
 
-    expect(decoder.contentType).toBe('application/jsonx+xml');
-
     try {
       decoder.decode(`<?xml version="1.0" encoding="UTF-8"?><json:object><aaa name="key1"></aaa></json:object>`);
       fail('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(`[Error: Unsupported node: {"aaa":[],":@":{"@_name":"key1"}}]`);
+    }
+  });
+
+  test('syntax error', () => {
+    const decoder = createJsonxTypeDecoder();
+
+    try {
+      decoder.decode('<xml');
+      fail('Expected error');
+    } catch (e) {
+      expect(e).toBeInstanceOf(DecodeError);
     }
   });
 });

@@ -1,5 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { Data } from '../../src';
+import { EncoderError } from '../../src/encoder';
 import { createJsonxTypeEncoder } from '../../src/encoder/jsonx-type-encoder';
 import data from '../data';
 
@@ -19,8 +20,6 @@ describe('createJsonxTypeEncoder', () => {
 
   test('prettyPrint: true', async () => {
     const encoder = createJsonxTypeEncoder(true);
-
-    expect(encoder.contentType).toBe('application/jsonx+xml');
 
     expect(encoder.encode(data)).toMatchInlineSnapshot(`
       "<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
@@ -575,14 +574,13 @@ describe('createJsonxTypeEncoder', () => {
   test('with unsupported data type', async () => {
     const encoder = createJsonxTypeEncoder(true);
 
-    expect(encoder.contentType).toBe('application/jsonx+xml');
-
     const invalidData = { date: new Date('2022-06-06T16:07:34.505Z') } as unknown as Data;
 
     try {
       encoder.encode(invalidData);
       fail('Expected error');
     } catch (e) {
+      expect(e).toBeInstanceOf(EncoderError);
       expect(e).toMatchInlineSnapshot(`[Error: Unsupported value: "2022-06-06T16:07:34.505Z"]`);
     }
   });

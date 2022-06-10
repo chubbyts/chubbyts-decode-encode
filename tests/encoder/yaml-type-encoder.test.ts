@@ -1,13 +1,16 @@
 import { describe, expect, test } from '@jest/globals';
+import { Data } from '../../src';
+import { EncoderError } from '../../src/encoder';
 import { createYamlTypeEncoder } from '../../src/encoder/yaml-type-encoder';
 import data from '../data';
 
-test('createYamlTypeEncoder', () => {
-  const encoder = createYamlTypeEncoder();
+describe('createYamlTypeEncoder', () => {
+  test('with data', () => {
+    const encoder = createYamlTypeEncoder();
 
-  expect(encoder.contentType).toBe('application/x-yaml');
+    expect(encoder.contentType).toBe('application/x-yaml');
 
-  expect(encoder.encode(data)).toMatchInlineSnapshot(`
+    expect(encoder.encode(data)).toMatchInlineSnapshot(`
     "page: 1
     perPage: 10
     search: null
@@ -128,4 +131,5 @@ test('createYamlTypeEncoder', () => {
     _type: search
     "
   `);
+  });
 });

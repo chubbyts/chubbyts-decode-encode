@@ -1,4 +1,4 @@
-import { TypeEncoder } from '.';
+import { EncoderError, TypeEncoder } from '.';
 import { Data, isArray, isBoolean, isNumber, isObject, isString, isNull } from '..';
 import {
   DATATYPE_ARRAY,
@@ -17,6 +17,7 @@ import {
   WithName,
 } from '../jsonx-datatypes';
 import { XMLBuilder } from 'fast-xml-parser';
+import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
 
 const encodeHtmlEntities = (string: string) =>
   string.replace(/[\u00A0-\u9999<>\&]/g, (i) => '&#' + i.charCodeAt(0) + ';');
@@ -197,21 +198,30 @@ const createObjectNode = (
 };
 
 export const createJsonxTypeEncoder = (prettyPrint: boolean = false): TypeEncoder => {
-  const encode = (data: Data): string => {
-    const builder = new XMLBuilder({
-      preserveOrder: true,
-      ignoreAttributes: false,
-      processEntities: false,
-      format: prettyPrint,
-    });
+  const builder = new XMLBuilder({
+    preserveOrder: true,
+    ignoreAttributes: false,
+    processEntities: false,
+    format: prettyPrint,
+  });
 
-    return builder.build([
-      createXmlNode(),
-      {
-        ...createNode(data),
-        ...createJsonxAttributes(),
-      },
-    ]) as string;
+  const encode = (data: Data): string => {
+    try {
+      return builder.build([
+        createXmlNode(),
+        {
+          ...createNode(data),
+          ...createJsonxAttributes(),
+        },
+      ]) as string;
+    } catch (e) {
+      const error = throwableToError(e);
+
+      const decodeError = new EncoderError(error.message);
+      decodeError.stack = error.stack;
+
+      throw decodeError;
+    }
   };
 
   const contentType = 'application/jsonx+xml';

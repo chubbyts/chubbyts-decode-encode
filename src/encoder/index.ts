@@ -1,5 +1,7 @@
 import { Data } from '..';
 
+export class EncoderError extends Error {}
+
 export type TypeEncoder = { encode: (data: Data) => string; contentType: string };
 
 export type Encoder = { encode: (data: Data, contentType: string) => string; contentTypes: Array<string> };

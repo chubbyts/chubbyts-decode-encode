@@ -1,6 +1,6 @@
 {
   "name": "@chubbyts/chubbyts-decode-encode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.",
   "keywords": [
     "chubbyts",
@@ -48,6 +48,7 @@
     "node": ">=14"
   },
   "dependencies": {
+    "@chubbyts/chubbyts-throwable-to-error": "^1.0.0",
     "fast-xml-parser": "^4.0.8",
     "qs": "^6.10.5",
     "yaml": "^2.1.1"
