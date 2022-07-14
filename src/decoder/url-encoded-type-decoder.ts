@@ -1,5 +1,5 @@
 import { TypeDecoder } from '.';
-import { Data, isArray, isObject, isString } from '..';
+import { Data, isArray, isObject } from '..';
 import { parse } from 'qs';
 
 type ParsedValue = { [key: string]: ParsedValue } | Array<ParsedValue> | string;
