@@ -34,7 +34,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^1.0.4
+npm i @chubbyts/chubbyts-decode-encode@^1.1.0
 ```
 
 ## Usage
@@ -48,7 +48,7 @@ import { createDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder';
 import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/json-type-decoder';
 
 const decoder = createDecoder([createJsonTypeDecoder()]);
-const data = decoder.decode('{"key":"value"}', 'application/json');
+const data = decoder.decode('{"key":"value"}', 'application/json'); // or with 3th argument, for example { user: 'username1' }
 // data: {key: "value"}
 const contentTypes = decoder.contentTypes;
 // contentTypes: ['application/json']
@@ -116,7 +116,7 @@ import { createEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder';
 import { createJsonTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/json-type-encoder';
 
 const encoder = createEncoder([createJsonTypeEncoder()]);
-const encodedData = encoder.encode({key: "value"}, 'application/json');dec
+const encodedData = encoder.encode({key: "value"}, 'application/json');  // or with 3th argument, for example { user: 'username1' }
 // encodedData: {"key":"value"}
 const contentTypes = encoder.contentTypes;
 // contentTypes: ['application/json']

@@ -4,7 +4,10 @@ export class EncodeError extends Error {}
 
 export type TypeEncoder = { encode: (data: Data) => string; contentType: string };
 
-export type Encoder = { encode: (data: Data, contentType: string) => string; contentTypes: Array<string> };
+export type Encoder = {
+  encode: (data: Data, contentType: string, context?: Record<string, unknown>) => string;
+  contentTypes: Array<string>;
+};
 
 export const createEncoder = (encoderTypes: Array<TypeEncoder>): Encoder => {
   const encoderTypeMap: Map<string, TypeEncoder> = new Map(

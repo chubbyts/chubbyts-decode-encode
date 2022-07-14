@@ -4,7 +4,10 @@ export class DecodeError extends Error {}
 
 export type TypeDecoder = { decode: (encodedData: string) => Data; contentType: string };
 
-export type Decoder = { decode: (encodedData: string, contentType: string) => Data; contentTypes: Array<string> };
+export type Decoder = {
+  decode: (encodedData: string, contentType: string, context?: Record<string, unknown>) => Data;
+  contentTypes: Array<string>;
+};
 
 export const createDecoder = (decoderTypes: Array<TypeDecoder>): Decoder => {
   const decoderTypeMap: Map<string, TypeDecoder> = new Map(
