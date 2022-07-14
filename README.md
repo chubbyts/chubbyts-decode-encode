@@ -88,7 +88,7 @@ const contentType = jsonxTypeDecoder.contentType;
 ```ts
 import { createUrlEncodedTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/url-encoded-type-decoder';
 
-const urlEncodedTypeDecoder = createUrlEncodedTypeDecoder();\"
+const urlEncodedTypeDecoder = createUrlEncodedTypeDecoder();
 const data = urlEncodedTypeDecoder.decode('key=value');
 // data: {key: "value"}
 const contentType = urlEncodedTypeDecoder.contentType;
@@ -116,7 +116,7 @@ import { createEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder';
 import { createJsonTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/json-type-encoder';
 
 const encoder = createEncoder([createJsonTypeEncoder()]);
-const encodedData = encoder.encode({key: "value"}, 'application/json');  // or with 3th argument, for example { user: 'username1' }
+const encodedData = encoder.encode({key: "value"}, 'application/json'); // or with 3th argument, for example { user: 'username1' }
 // encodedData: {"key":"value"}
 const contentTypes = encoder.contentTypes;
 // contentTypes: ['application/json']
