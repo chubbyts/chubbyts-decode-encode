@@ -7,7 +7,7 @@ describe('createEncoder', () => {
   test('without type encoders', async () => {
     const encoder = createEncoder([]);
 
-    expect(encoder.contentTypes).toMatchInlineSnapshot(`Array []`);
+    expect(encoder.contentTypes).toMatchInlineSnapshot(`[]`);
 
     try {
       encoder.encode(data, 'application/json');
@@ -39,7 +39,7 @@ describe('createEncoder', () => {
     const encoder = createEncoder([xmlTypeEncoder, yamlTypeEncoder]);
 
     expect(encoder.contentTypes).toMatchInlineSnapshot(`
-      Array [
+      [
         "application/xml",
         "application/x-yaml",
       ]
@@ -72,7 +72,7 @@ describe('createEncoder', () => {
     const encoder = createEncoder([typeEncoder]);
 
     expect(encoder.contentTypes).toMatchInlineSnapshot(`
-      Array [
+      [
         "application/json",
       ]
     `);

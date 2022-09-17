@@ -6,7 +6,7 @@ describe('createDecoder', () => {
   test('without type decoders', async () => {
     const decoder = createDecoder([]);
 
-    expect(decoder.contentTypes).toMatchInlineSnapshot(`Array []`);
+    expect(decoder.contentTypes).toMatchInlineSnapshot(`[]`);
 
     try {
       decoder.decode('', 'application/json');
@@ -38,7 +38,7 @@ describe('createDecoder', () => {
     const decoder = createDecoder([xmlTypeDecoder, yamlTypeDecoder]);
 
     expect(decoder.contentTypes).toMatchInlineSnapshot(`
-      Array [
+      [
         "application/xml",
         "application/x-yaml",
       ]
@@ -71,7 +71,7 @@ describe('createDecoder', () => {
     const decoder = createDecoder([typeDecoder]);
 
     expect(decoder.contentTypes).toMatchInlineSnapshot(`
-      Array [
+      [
         "application/json",
       ]
     `);

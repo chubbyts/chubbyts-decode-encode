@@ -507,12 +507,12 @@ A f&#228;ncy Name
         </json:object>
       </json:array>`),
     ).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "key1": null,
-          "key10": Array [
-            Array [
-              Object {
+          "key10": [
+            [
+              {
                 "key1": null,
                 "key2": null,
                 "key3": true,
@@ -520,7 +520,7 @@ A f&#228;ncy Name
                 "key5": 3,
                 "key6": 3.3,
                 "key7": "value7",
-                "key8": Array [
+                "key8": [
                   null,
                   null,
                   true,
@@ -529,7 +529,7 @@ A f&#228;ncy Name
                   3.3,
                   "value7",
                 ],
-                "key9": Object {
+                "key9": {
                   "key1": null,
                   "key2": null,
                   "key3": true,
@@ -537,7 +537,7 @@ A f&#228;ncy Name
                   "key5": 3,
                   "key6": 3.3,
                   "key7": "value7",
-                  "key8": Array [
+                  "key8": [
                     null,
                     null,
                     true,
@@ -556,7 +556,7 @@ A f&#228;ncy Name
           "key5": 3,
           "key6": 3.3,
           "key7": "value7",
-          "key8": Array [
+          "key8": [
             null,
             null,
             true,
@@ -565,7 +565,7 @@ A f&#228;ncy Name
             3.3,
             "value7",
           ],
-          "key9": Object {
+          "key9": {
             "key1": null,
             "key2": null,
             "key3": true,
@@ -573,7 +573,7 @@ A f&#228;ncy Name
             "key5": 3,
             "key6": 3.3,
             "key7": "value7",
-            "key8": Array [
+            "key8": [
               null,
               null,
               true,
