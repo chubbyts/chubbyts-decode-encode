@@ -40,15 +40,7 @@ const decodeValue = (value: ParsedValue): Data => {
   return value;
 };
 
-export const createUrlEncodedTypeDecoder = (): TypeDecoder => {
-  const decode = (encodedData: string): Data => {
-    return decodeValue(parse(encodedData, { depth: 100 }) as ParsedValue);
-  };
-
-  const contentType = 'application/x-www-form-urlencoded';
-
-  return {
-    decode,
-    contentType,
-  };
-};
+export const createUrlEncodedTypeDecoder = (): TypeDecoder => ({
+  decode: (encodedData: string): Data => decodeValue(parse(encodedData, { depth: 100 }) as ParsedValue),
+  contentType: 'application/x-www-form-urlencoded',
+});

@@ -205,29 +205,25 @@ export const createJsonxTypeEncoder = (prettyPrint: boolean = false): TypeEncode
     format: prettyPrint,
   });
 
-  const encode = (data: Data): string => {
-    try {
-      return builder.build([
-        createXmlNode(),
-        {
-          ...createNode(data),
-          ...createJsonxAttributes(),
-        },
-      ]) as string;
-    } catch (e) {
-      const error = throwableToError(e);
-
-      const decodeError = new EncodeError(error.message);
-      decodeError.stack = error.stack;
-
-      throw decodeError;
-    }
-  };
-
-  const contentType = 'application/jsonx+xml';
-
   return {
-    encode,
-    contentType,
+    encode: (data: Data): string => {
+      try {
+        return builder.build([
+          createXmlNode(),
+          {
+            ...createNode(data),
+            ...createJsonxAttributes(),
+          },
+        ]) as string;
+      } catch (e) {
+        const error = throwableToError(e);
+
+        const decodeError = new EncodeError(error.message);
+        decodeError.stack = error.stack;
+
+        throw decodeError;
+      }
+    },
+    contentType: 'application/jsonx+xml',
   };
 };

@@ -29,14 +29,8 @@ const encodeValue = (value: Data): EncodedData => {
 };
 
 export const createUrlEncodedTypeEncoder = (): TypeEncoder => {
-  const encode = (data: Data): string => {
-    return stringify(encodeValue(data), { encodeValuesOnly: true });
-  };
-
-  const contentType = 'application/x-www-form-urlencoded';
-
   return {
-    encode,
-    contentType,
+    encode: (data: Data): string => stringify(encodeValue(data), { encodeValuesOnly: true }),
+    contentType: 'application/x-www-form-urlencoded',
   };
 };

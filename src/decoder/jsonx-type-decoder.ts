@@ -105,25 +105,21 @@ const convertObjectNode = (node: JsonxObjectNode): Record<string, Data> => {
 };
 
 export const createJsonxTypeDecoder = (): TypeDecoder => {
-  const decode = (encodedData: string): Data => {
-    try {
-      const parser = new XMLParser({ preserveOrder: true, ignoreAttributes: false, htmlEntities: false });
-
-      return convertNode(parser.parse(encodedData)[1]);
-    } catch (e) {
-      const error = throwableToError(e);
-
-      const decodeError = new DecodeError(error.message);
-      decodeError.stack = error.stack;
-
-      throw decodeError;
-    }
-  };
-
-  const contentType = 'application/jsonx+xml';
-
   return {
-    decode,
-    contentType,
+    decode: (encodedData: string): Data => {
+      try {
+        const parser = new XMLParser({ preserveOrder: true, ignoreAttributes: false, htmlEntities: false });
+
+        return convertNode(parser.parse(encodedData)[1]);
+      } catch (e) {
+        const error = throwableToError(e);
+
+        const decodeError = new DecodeError(error.message);
+        decodeError.stack = error.stack;
+
+        throw decodeError;
+      }
+    },
+    contentType: 'application/jsonx+xml',
   };
 };
