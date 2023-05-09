@@ -1,13 +1,6 @@
-import { DecodeError, TypeDecoder } from '.';
-import { Data } from '..';
 import { XMLParser } from 'fast-xml-parser';
-import {
-  DATATYPE_ARRAY,
-  DATATYPE_BOOLEAN,
-  DATATYPE_NULL,
-  DATATYPE_NUMBER,
-  DATATYPE_OBJECT,
-  DATATYPE_STRING,
+import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import type {
   JsonxArrayNode,
   JsonxBooleanNode,
   JsonxNullNode,
@@ -17,7 +10,17 @@ import {
   JsonxNode,
   WithName,
 } from '../jsonx-datatypes';
-import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import {
+  DATATYPE_ARRAY,
+  DATATYPE_BOOLEAN,
+  DATATYPE_NULL,
+  DATATYPE_NUMBER,
+  DATATYPE_OBJECT,
+  DATATYPE_STRING,
+} from '../jsonx-datatypes';
+import type { Data } from '..';
+import { DecodeError } from '.';
+import type { TypeDecoder } from '.';
 
 const decodeHtmlEntities = (string: string) =>
   string.replace(/&#\d+;/gm, (code) =>
@@ -114,10 +117,7 @@ export const createJsonxTypeDecoder = (): TypeDecoder => {
       } catch (e) {
         const error = throwableToError(e);
 
-        const decodeError = new DecodeError(error.message);
-        decodeError.stack = error.stack;
-
-        throw decodeError;
+        throw new DecodeError(error.message, error.stack);
       }
     },
     contentType: 'application/jsonx+xml',

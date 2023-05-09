@@ -1,6 +1,6 @@
-import { TypeEncoder } from '.';
 import { stringify } from 'yaml';
-import { Data } from '..';
+import type { Data } from '..';
+import type { TypeEncoder } from '.';
 
 export const createYamlTypeEncoder = (): TypeEncoder => {
   return {

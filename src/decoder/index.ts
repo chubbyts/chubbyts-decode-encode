@@ -1,6 +1,11 @@
-import { Data } from '..';
+import type { Data } from '..';
 
-export class DecodeError extends Error {}
+export class DecodeError extends Error {
+  public constructor(message: string, stack?: string) {
+    super(message);
+    this.stack = stack;
+  }
+}
 
 export type TypeDecoder = { decode: (encodedData: string) => Data; contentType: string };
 

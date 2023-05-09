@@ -1,39 +1,32 @@
 import { describe, expect, test } from '@jest/globals';
-import { Data } from '../../src';
-import { createDecoder, TypeDecoder } from '../../src/decoder';
+import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
+import type { TypeDecoder } from '../../src/decoder';
+import { createDecoder } from '../../src/decoder';
 
 describe('createDecoder', () => {
   test('without type decoders', async () => {
     const decoder = createDecoder([]);
 
-    expect(decoder.contentTypes).toMatchInlineSnapshot(`[]`);
+    expect(decoder.contentTypes).toMatchInlineSnapshot('[]');
 
     try {
       decoder.decode('', 'application/json');
       fail('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
-        `[Error: Unsupported contentType "application/json", supported contentTypes are "".]`,
+        '[Error: Unsupported contentType "application/json", supported contentTypes are "".]',
       );
     }
   });
 
   test('without matching type decoders', async () => {
-    const decode = jest.fn((givenString: string): Data => {
-      expect(givenString).toBe('test');
+    const [xmlTypeDecoder, xmlTypeDecoderMocks] = useObjectMock<TypeDecoder>([
+      { name: 'contentType', value: 'application/xml' },
+    ]);
 
-      return {};
-    });
-
-    const xmlTypeDecoder: TypeDecoder = {
-      decode,
-      contentType: 'application/xml',
-    };
-
-    const yamlTypeDecoder: TypeDecoder = {
-      decode,
-      contentType: 'application/x-yaml',
-    };
+    const [yamlTypeDecoder, yamlTypeDecoderMocks] = useObjectMock<TypeDecoder>([
+      { name: 'contentType', value: 'application/x-yaml' },
+    ]);
 
     const decoder = createDecoder([xmlTypeDecoder, yamlTypeDecoder]);
 
@@ -49,26 +42,21 @@ describe('createDecoder', () => {
       fail('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
-        `[Error: Unsupported contentType "application/json", supported contentTypes are "application/xml", "application/x-yaml".]`,
+        '[Error: Unsupported contentType "application/json", supported contentTypes are "application/xml", "application/x-yaml".]',
       );
     }
 
-    expect(decode).toHaveBeenCalledTimes(0);
+    expect(xmlTypeDecoderMocks.length).toBe(0);
+    expect(yamlTypeDecoderMocks.length).toBe(0);
   });
 
   test('with type decoders', async () => {
-    const decode = jest.fn((givenString: string): Data => {
-      expect(givenString).toBe('test');
+    const [jsonTypeDecoder, jsonTypeDecoderMocks] = useObjectMock<TypeDecoder>([
+      { name: 'contentType', value: 'application/json' },
+      { name: 'decode', parameters: ['test'], return: {} },
+    ]);
 
-      return {};
-    });
-
-    const typeDecoder: TypeDecoder = {
-      decode,
-      contentType: 'application/json',
-    };
-
-    const decoder = createDecoder([typeDecoder]);
+    const decoder = createDecoder([jsonTypeDecoder]);
 
     expect(decoder.contentTypes).toMatchInlineSnapshot(`
       [
@@ -77,6 +65,7 @@ describe('createDecoder', () => {
     `);
 
     expect(decoder.decode('test', 'application/json')).toEqual({});
-    expect(decode).toHaveBeenCalledTimes(1);
+
+    expect(jsonTypeDecoderMocks.length).toBe(0);
   });
 });

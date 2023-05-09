@@ -1,6 +1,7 @@
 import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
-import { DecodeError, TypeDecoder } from '.';
-import { Data } from '..';
+import type { Data } from '..';
+import type { TypeDecoder } from '.';
+import { DecodeError } from '.';
 
 export const createJsonTypeDecoder = (): TypeDecoder => {
   return {
@@ -10,10 +11,7 @@ export const createJsonTypeDecoder = (): TypeDecoder => {
       } catch (e) {
         const error = throwableToError(e);
 
-        const decodeError = new DecodeError(error.message);
-        decodeError.stack = error.stack;
-
-        throw decodeError;
+        throw new DecodeError(error.message, error.stack);
       }
     },
     contentType: 'application/json',

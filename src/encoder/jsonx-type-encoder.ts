@@ -1,12 +1,8 @@
-import { EncodeError, TypeEncoder } from '.';
-import { Data, isArray, isBoolean, isNumber, isObject, isString, isNull } from '..';
-import {
-  DATATYPE_ARRAY,
-  DATATYPE_BOOLEAN,
-  DATATYPE_NULL,
-  DATATYPE_NUMBER,
-  DATATYPE_OBJECT,
-  DATATYPE_STRING,
+import { XMLBuilder } from 'fast-xml-parser';
+import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import type { Data } from '..';
+import { isArray, isBoolean, isNumber, isObject, isString, isNull } from '..';
+import type {
   JsonxArrayNode,
   JsonxBooleanNode,
   JsonxNullNode,
@@ -16,11 +12,19 @@ import {
   JsonxNode,
   WithName,
 } from '../jsonx-datatypes';
-import { XMLBuilder } from 'fast-xml-parser';
-import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import {
+  DATATYPE_ARRAY,
+  DATATYPE_BOOLEAN,
+  DATATYPE_NULL,
+  DATATYPE_NUMBER,
+  DATATYPE_OBJECT,
+  DATATYPE_STRING,
+} from '../jsonx-datatypes';
+import { EncodeError } from '.';
+import type { TypeEncoder } from '.';
 
 const encodeHtmlEntities = (string: string) =>
-  string.replace(/[\u00A0-\u9999<>\&]/g, (i) => '&#' + i.charCodeAt(0) + ';');
+  string.replace(/[\u00A0-\u9999<>&]/g, (i) => '&#' + i.charCodeAt(0) + ';');
 
 const createXmlNode = (): Record<string, unknown> => {
   return {
@@ -197,7 +201,7 @@ const createObjectNode = (
   };
 };
 
-export const createJsonxTypeEncoder = (prettyPrint: boolean = false): TypeEncoder => {
+export const createJsonxTypeEncoder = (prettyPrint = false): TypeEncoder => {
   const builder = new XMLBuilder({
     preserveOrder: true,
     ignoreAttributes: false,
@@ -218,10 +222,7 @@ export const createJsonxTypeEncoder = (prettyPrint: boolean = false): TypeEncode
       } catch (e) {
         const error = throwableToError(e);
 
-        const decodeError = new EncodeError(error.message);
-        decodeError.stack = error.stack;
-
-        throw decodeError;
+        throw new EncodeError(error.message, error.stack);
       }
     },
     contentType: 'application/jsonx+xml',

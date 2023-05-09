@@ -592,10 +592,10 @@ A f&#228;ncy Name
     const decoder = createJsonxTypeDecoder();
 
     try {
-      decoder.decode(`<?xml version="1.0" encoding="UTF-8"?><json:array><aaa></aaa></json:array>`);
+      decoder.decode('<?xml version="1.0" encoding="UTF-8"?><json:array><aaa></aaa></json:array>');
       fail('Expected error');
     } catch (e) {
-      expect(e).toMatchInlineSnapshot(`[Error: Unsupported node: {"aaa":[]}]`);
+      expect(e).toMatchInlineSnapshot('[Error: Unsupported node: {"aaa":[]}]');
     }
   });
 
@@ -603,10 +603,10 @@ A f&#228;ncy Name
     const decoder = createJsonxTypeDecoder();
 
     try {
-      decoder.decode(`<?xml version="1.0" encoding="UTF-8"?><json:object><aaa name="key1"></aaa></json:object>`);
+      decoder.decode('<?xml version="1.0" encoding="UTF-8"?><json:object><aaa name="key1"></aaa></json:object>');
       fail('Expected error');
     } catch (e) {
-      expect(e).toMatchInlineSnapshot(`[Error: Unsupported node: {"aaa":[],":@":{"@_name":"key1"}}]`);
+      expect(e).toMatchInlineSnapshot('[Error: Unsupported node: {"aaa":[],":@":{"@_name":"key1"}}]');
     }
   });
 

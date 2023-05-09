@@ -1,7 +1,8 @@
-import { DecodeError, TypeDecoder } from '.';
-import { Data } from '..';
 import { parse } from 'yaml';
 import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import type { Data } from '..';
+import { DecodeError } from '.';
+import type { TypeDecoder } from '.';
 
 export const createYamlTypeDecoder = (): TypeDecoder => {
   return {
@@ -11,10 +12,7 @@ export const createYamlTypeDecoder = (): TypeDecoder => {
       } catch (e) {
         const error = throwableToError(e);
 
-        const decodeError = new DecodeError(error.message);
-        decodeError.stack = error.stack;
-
-        throw decodeError;
+        throw new DecodeError(error.message, error.stack);
       }
     },
     contentType: 'application/x-yaml',
