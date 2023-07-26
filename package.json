@@ -1,7 +1,7 @@
 {
   "name": "@chubbyts/chubbyts-decode-encode",
   "type": "module",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.",
   "keywords": [
     "chubbyts",
@@ -48,6 +48,24 @@
     "dist"
   ],
   "exports": {
+    "./dist": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.mjs"
+    },
+    "./dist/decoder": {
+      "types": "./dist/decoder/index.d.ts",
+      "require": "./dist/decoder/index.cjs",
+      "import": "./dist/decoder/index.mjs",
+      "default": "./dist/decoder/index.mjs"
+    },
+    "./dist/encoder": {
+      "types": "./dist/encoder/index.d.ts",
+      "require": "./dist/encoder/index.cjs",
+      "import": "./dist/encoder/index.mjs",
+      "default": "./dist/encoder/index.mjs"
+    },
     "./*": {
       "types": "./*.d.ts",
       "require": "./*.cjs",
