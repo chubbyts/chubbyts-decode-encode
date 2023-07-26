@@ -1,4 +1,4 @@
-import type { Data } from '..';
+import type { Data } from '../index';
 
 export class DecodeError extends Error {
   public constructor(message: string, stack?: string) {

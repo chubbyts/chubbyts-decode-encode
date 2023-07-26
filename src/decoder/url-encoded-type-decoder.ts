@@ -1,7 +1,7 @@
 import { parse } from 'qs';
-import type { Data } from '..';
-import { isArray, isObject } from '..';
-import type { TypeDecoder } from '.';
+import type { Data } from '../index';
+import { isArray, isObject } from '../index';
+import type { TypeDecoder } from './index';
 
 type ParsedValue = { [key: string]: ParsedValue } | Array<ParsedValue> | string;
 

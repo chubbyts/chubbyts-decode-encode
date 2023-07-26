@@ -1,7 +1,7 @@
 import { XMLBuilder } from 'fast-xml-parser';
 import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
-import type { Data } from '..';
-import { isArray, isBoolean, isNumber, isObject, isString, isNull } from '..';
+import type { Data } from '../index';
+import { isArray, isBoolean, isNumber, isObject, isString, isNull } from '../index';
 import type {
   JsonxArrayNode,
   JsonxBooleanNode,
@@ -20,8 +20,8 @@ import {
   DATATYPE_OBJECT,
   DATATYPE_STRING,
 } from '../jsonx-datatypes';
-import { EncodeError } from '.';
-import type { TypeEncoder } from '.';
+import { EncodeError } from './index';
+import type { TypeEncoder } from './index';
 
 const encodeHtmlEntities = (string: string) =>
   string.replace(/[\u00A0-\u9999<>&]/g, (i) => '&#' + i.charCodeAt(0) + ';');
