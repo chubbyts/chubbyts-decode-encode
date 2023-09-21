@@ -113,7 +113,7 @@ export const createJsonxTypeDecoder = (): TypeDecoder => {
       try {
         const parser = new XMLParser({ preserveOrder: true, ignoreAttributes: false, htmlEntities: false });
 
-        return convertNode(parser.parse(encodedData)[1]);
+        return convertNode(parser.parse<Array<JsonxNode>>(encodedData)[1]);
       } catch (e) {
         const error = throwableToError(e);
 
