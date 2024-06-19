@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import { DecodeError } from '../../src/decoder';
 import { createJsonTypeDecoder } from '../../src/decoder/json-type-decoder';
 import data from '../data';

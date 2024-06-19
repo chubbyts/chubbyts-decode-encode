@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import { DecodeError } from '../../src/decoder';
 import { createYamlTypeDecoder } from '../../src/decoder/yaml-type-decoder';
 import data from '../data';

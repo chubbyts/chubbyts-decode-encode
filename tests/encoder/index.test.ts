@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
 import type { TypeEncoder } from '../../src/encoder';
 import { createEncoder } from '../../src/encoder';

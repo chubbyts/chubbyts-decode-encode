@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import { createUrlEncodedTypeEncoder } from '../../src/encoder/url-encoded-type-encoder';
 import data from '../data';
 
