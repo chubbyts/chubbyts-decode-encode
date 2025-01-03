@@ -23,18 +23,18 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 
 ## Requirements
 
- * node: 16
- * [@chubbyts/chubbyts-throwable-to-error][2]: ^1.2.1
- * [fast-xml-parser][3]: ^4.4.0
- * [qs][4]: ^6.12.1
- * [yaml][5]: ^2.4.5
+ * node: 18
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^1.3.0
+ * [fast-xml-parser][3]: ^4.5.1
+ * [qs][4]: ^6.13.1
+ * [yaml][5]: ^2.7.0
 
 ## Installation
 
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^1.3.4
+npm i @chubbyts/chubbyts-decode-encode@^1.4.0
 ```
 
 ## Usage
@@ -175,7 +175,7 @@ const contentType = yamlTypeEncoder.contentType;
 
 ## Copyright
 
-2024 Dominik Zogg
+2025 Dominik Zogg
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-decode-encode
 [2]: https://www.npmjs.com/package/@chubbyts/chubbyts-throwable-to-error
