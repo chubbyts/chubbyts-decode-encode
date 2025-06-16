@@ -1,8 +1,8 @@
 import { parse } from 'yaml';
 import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
-import type { Data } from '../index';
-import { DecodeError } from './index';
-import type { TypeDecoder } from './index';
+import type { Data } from '../index.js';
+import { DecodeError } from './index.js';
+import type { TypeDecoder } from './index.js';
 
 export const createYamlTypeDecoder = (): TypeDecoder => {
   return {

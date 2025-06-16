@@ -9,7 +9,7 @@ import type {
   JsonxStringNode,
   JsonxNode,
   WithName,
-} from '../jsonx-datatypes';
+} from '../jsonx-datatypes.js';
 import {
   DATATYPE_ARRAY,
   DATATYPE_BOOLEAN,
@@ -17,10 +17,10 @@ import {
   DATATYPE_NUMBER,
   DATATYPE_OBJECT,
   DATATYPE_STRING,
-} from '../jsonx-datatypes';
-import type { Data } from '../index';
-import { DecodeError } from './index';
-import type { TypeDecoder } from './index';
+} from '../jsonx-datatypes.js';
+import type { Data } from '../index.js';
+import { DecodeError } from './index.js';
+import type { TypeDecoder } from './index.js';
 
 const decodeHtmlEntities = (string: string) =>
   string.replace(/&#\d+;/gm, (code) =>

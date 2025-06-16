@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
-import type { Data } from '../index';
-import { isArray, isBoolean, isNull, isNumber, isObject } from '../index';
-import type { TypeEncoder } from './index';
+import type { Data } from '../index.js';
+import { isArray, isBoolean, isNull, isNumber, isObject } from '../index.js';
+import type { TypeEncoder } from './index.js';
 
 type EncodedData = { [key: string]: Data } | Array<Data> | string;
 

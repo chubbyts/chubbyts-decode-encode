@@ -1,4 +1,4 @@
-import type { Data } from '../index';
+import type { Data } from '../index.js';
 
 export class EncodeError extends Error {
   public constructor(message: string, stack?: string) {
