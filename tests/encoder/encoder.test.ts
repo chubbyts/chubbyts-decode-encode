@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
-import type { TypeEncoder } from '../../src/encoder';
-import { createEncoder } from '../../src/encoder';
+import type { TypeEncoder } from '../../src/encoder/encoder';
+import { createEncoder } from '../../src/encoder/encoder';
 import data from '../data';
 
 describe('createEncoder', () => {
@@ -12,7 +12,7 @@ describe('createEncoder', () => {
 
     try {
       encoder.encode(data, 'application/json');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
         '[Error: Unsupported contentType "application/json", supported contentTypes are "".]',
@@ -40,7 +40,7 @@ describe('createEncoder', () => {
 
     try {
       encoder.encode(data, 'application/json');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
         '[Error: Unsupported contentType "application/json", supported contentTypes are "application/xml", "application/x-yaml".]',

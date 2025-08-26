@@ -18,9 +18,9 @@ import {
   DATATYPE_OBJECT,
   DATATYPE_STRING,
 } from '../jsonx-datatypes.js';
-import type { Data } from '../index.js';
-import { DecodeError } from './index.js';
-import type { TypeDecoder } from './index.js';
+import type { Data } from '../data.js';
+import { DecodeError } from './decoder.js';
+import type { TypeDecoder } from './decoder.js';
 
 const decodeHtmlEntities = (string: string) =>
   string.replace(/&#\d+;/gm, (code) =>

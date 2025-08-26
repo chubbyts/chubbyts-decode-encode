@@ -1,7 +1,7 @@
 import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
-import type { Data } from '../index.js';
-import type { TypeDecoder } from './index.js';
-import { DecodeError } from './index.js';
+import type { Data } from '../data.js';
+import type { TypeDecoder } from './decoder.js';
+import { DecodeError } from './decoder.js';
 
 export const createJsonTypeDecoder = (): TypeDecoder => {
   return {

@@ -1,5 +1,5 @@
-import type { Data } from '../index.js';
-import type { TypeEncoder } from './index.js';
+import type { Data } from '../data.js';
+import type { TypeEncoder } from './encoder.js';
 
 export const createJsonTypeEncoder = (prettyPrint = false): TypeEncoder => {
   return {

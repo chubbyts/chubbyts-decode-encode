@@ -34,7 +34,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^2.0.1
+npm i @chubbyts/chubbyts-decode-encode@^2.1.0
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ npm i @chubbyts/chubbyts-decode-encode@^2.0.1
 #### createDecoder
 
 ```ts
-import { createDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder';
+import { createDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/decoder';
 import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/json-type-decoder';
 
 const decoder = createDecoder([createJsonTypeDecoder()]);
@@ -112,7 +112,7 @@ const contentType = yamlTypeDecoder.contentType;
 #### createEncoder
 
 ```ts
-import { createEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder';
+import { createEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/encoder';
 import { createJsonTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/json-type-encoder';
 
 const encoder = createEncoder([createJsonTypeEncoder()]);

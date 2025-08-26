@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
-import type { TypeDecoder } from '../../src/decoder';
-import { createDecoder } from '../../src/decoder';
+import type { TypeDecoder } from '../../src/decoder/decoder';
+import { createDecoder } from '../../src/decoder/decoder';
 
 describe('createDecoder', () => {
   test('without type decoders', async () => {
@@ -11,7 +11,7 @@ describe('createDecoder', () => {
 
     try {
       decoder.decode('', 'application/json');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
         '[Error: Unsupported contentType "application/json", supported contentTypes are "".]',
@@ -39,7 +39,7 @@ describe('createDecoder', () => {
 
     try {
       decoder.decode('', 'application/json');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot(
         '[Error: Unsupported contentType "application/json", supported contentTypes are "application/xml", "application/x-yaml".]',
