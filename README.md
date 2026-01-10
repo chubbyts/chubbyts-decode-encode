@@ -175,7 +175,7 @@ const contentType = yamlTypeEncoder.contentType;
 
 ## Copyright
 
-2025 Dominik Zogg
+2026 Dominik Zogg
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-decode-encode
 [2]: https://www.npmjs.com/package/@chubbyts/chubbyts-throwable-to-error
