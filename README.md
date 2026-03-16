@@ -23,10 +23,10 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 
 ## Requirements
 
- * node: 18
- * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.0.2
- * [fast-xml-parser][3]: ^5.3.3
- * [qs][4]: ^6.14.0
+ * node: 20
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.0.4
+ * [fast-xml-parser][3]: ^5.5.6
+ * [qs][4]: ^6.15.0
  * [yaml][5]: ^2.8.2
 
 ## Installation
@@ -34,7 +34,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^2.1.1
+npm i @chubbyts/chubbyts-decode-encode@^2.1.2
 ```
 
 ## Usage
