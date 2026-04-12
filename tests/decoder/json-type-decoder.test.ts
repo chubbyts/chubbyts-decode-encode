@@ -27,6 +27,7 @@ describe('createJsonTypeDecoder', () => {
                 },
                 "progress": 76.8,
                 "active": true,
+                "parent": null,
                 "_type": "item",
                 "_links": {
                     "read": {
@@ -63,6 +64,7 @@ describe('createJsonTypeDecoder', () => {
                     },
                     "progress": 76.8,
                     "active": true,
+                    "parent": null,
                     "_type": "item",
                     "_links": {
                         "read": {
@@ -99,6 +101,7 @@ describe('createJsonTypeDecoder', () => {
                     },
                     "progress": 24.7,
                     "active": true,
+                    "parent": "id1",
                     "_type": "item",
                     "_links": {
                         "read": {
@@ -136,6 +139,7 @@ describe('createJsonTypeDecoder', () => {
                     },
                     "progress": 100,
                     "active": false,
+                    "parent": "id1",
                     "_type": "item",
                     "_links": {
                         "read": {
@@ -183,7 +187,7 @@ describe('createJsonTypeDecoder', () => {
 
     try {
       decoder.decode('{');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toBeInstanceOf(DecodeError);
     }

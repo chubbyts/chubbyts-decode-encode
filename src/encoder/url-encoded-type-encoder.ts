@@ -1,25 +1,15 @@
 import { stringify } from 'qs';
 import type { Data } from '../data.js';
-import { isArray, isBoolean, isNull, isNumber, isObject } from '../data.js';
+import { isArray, isNull, isObject } from '../data.js';
 import type { TypeEncoder } from './encoder.js';
 
-type EncodedData = { [key: string]: Data } | Array<Data> | string;
-
-const encodeValue = (value: Data): EncodedData => {
+const encodeValue = (value: Data): Data => {
   if (isObject(value)) {
     return Object.fromEntries(Object.entries(value).map(([subKey, subValue]) => [subKey, encodeValue(subValue)]));
   }
 
   if (isArray(value)) {
     return value.map(encodeValue);
-  }
-
-  if (isNumber(value)) {
-    return value.toString();
-  }
-
-  if (isBoolean(value)) {
-    return value ? 'true' : 'false';
   }
 
   if (isNull(value)) {

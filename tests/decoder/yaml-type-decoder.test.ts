@@ -26,6 +26,7 @@ _embedded:
                 key11: 3
         progress: 76.8
         active: true
+        parent: null
         _type: item
         _links:
             read:
@@ -54,6 +55,7 @@ _embedded:
                     key11: 3
             progress: 76.8
             active: true
+            parent: null
             _type: item
             _links:
                 read:
@@ -80,6 +82,7 @@ _embedded:
                     key12: 4
             progress: 24.7
             active: true
+            parent: id1
             _type: item
             _links:
                 read:
@@ -107,6 +110,7 @@ _embedded:
                     key13: 7
             progress: 100
             active: false
+            parent: id1
             _type: item
             _links:
                 read:
@@ -140,7 +144,7 @@ _type: search`),
 
     try {
       decoder.decode('key: value: value');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toBeInstanceOf(DecodeError);
     }

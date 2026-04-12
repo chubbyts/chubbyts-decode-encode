@@ -26,15 +26,9 @@ const decodeValue = (value: ParsedValue): Data => {
     return false;
   }
 
-  const integer = parseInt(value, 10);
+  const float = parseFloat(value); // handles integers as well
 
-  if (!isNaN(integer) && integer.toString() === value) {
-    return integer;
-  }
-
-  const float = parseFloat(value);
-
-  if (!isNaN(float) && float.toString() === value) {
+  if (float.toString() === value) {
     return float;
   }
 

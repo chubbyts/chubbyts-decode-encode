@@ -24,6 +24,7 @@ describe('createYamlTypeEncoder', () => {
                       key11: 3
               progress: 76.8
               active: true
+              parent: null
               _type: item
               _links:
                   read:
@@ -51,6 +52,7 @@ describe('createYamlTypeEncoder', () => {
                         key11: 3
                 progress: 76.8
                 active: true
+                parent: null
                 _type: item
                 _links:
                     read:
@@ -76,6 +78,7 @@ describe('createYamlTypeEncoder', () => {
                         key12: 4
                 progress: 24.7
                 active: true
+                parent: id1
                 _type: item
                 _links:
                     read:
@@ -102,6 +105,7 @@ describe('createYamlTypeEncoder', () => {
                         key13: 7
                 progress: 100
                 active: false
+                parent: id1
                 _type: item
                 _links:
                     read:

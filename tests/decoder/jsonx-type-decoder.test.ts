@@ -48,6 +48,8 @@ describe('createJsonxTypeDecoder', () => {
             <json:boolean name="active">
               true
             </json:boolean>
+            <json:null name="parent">
+            </json:null>
             <json:string name="_type">
               item
             </json:string>
@@ -116,6 +118,8 @@ A f&#228;ncy Name
               <json:boolean name="active">
                 true
               </json:boolean>
+              <json:null name="parent">
+              </json:null>
               <json:string name="_type">
                 item
               </json:string>
@@ -184,6 +188,9 @@ A f&#228;ncy Name
               <json:boolean name="active">
                 true
               </json:boolean>
+              <json:string name="parent">
+                id1
+              </json:string>
               <json:string name="_type">
                 item
               </json:string>
@@ -255,6 +262,9 @@ A f&#228;ncy Name
               <json:boolean name="active">
                 false
               </json:boolean>
+              <json:string name="parent">
+                id1
+              </json:string>
               <json:string name="_type">
                 item
               </json:string>
@@ -593,7 +603,7 @@ A f&#228;ncy Name
 
     try {
       decoder.decode('<?xml version="1.0" encoding="UTF-8"?><json:array><aaa></aaa></json:array>');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot('[Error: Unsupported node: {"aaa":[]}]');
     }
@@ -604,9 +614,22 @@ A f&#228;ncy Name
 
     try {
       decoder.decode('<?xml version="1.0" encoding="UTF-8"?><json:object><aaa name="key1"></aaa></json:object>');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toMatchInlineSnapshot('[Error: Unsupported node: {"aaa":[],":@":{"@_name":"key1"}}]');
+    }
+  });
+
+  test('supported without name', () => {
+    const decoder = createJsonxTypeDecoder();
+
+    try {
+      decoder.decode(
+        '<?xml version="1.0" encoding="UTF-8"?><json:object><json:string>value</json:string></json:object>',
+      );
+      throw new Error('Expected error');
+    } catch (e) {
+      expect(e).toMatchInlineSnapshot('[Error: Unsupported node: {"json:string":[{"#text":"value"}]}]');
     }
   });
 
@@ -615,7 +638,7 @@ A f&#228;ncy Name
 
     try {
       decoder.decode('<xml');
-      fail('Expected error');
+      throw new Error('Expected error');
     } catch (e) {
       expect(e).toBeInstanceOf(DecodeError);
     }

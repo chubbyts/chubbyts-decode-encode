@@ -17,6 +17,7 @@ const data: Data = {
       },
       progress: 76.8,
       active: true,
+      parent: null,
       _type: 'item',
       _links: {
         read: {
@@ -53,6 +54,7 @@ const data: Data = {
         },
         progress: 76.8,
         active: true,
+        parent: null,
         _type: 'item',
         _links: {
           read: {
@@ -89,6 +91,7 @@ const data: Data = {
         },
         progress: 24.7,
         active: true,
+        parent: 'id1',
         _type: 'item',
         _links: {
           read: {
@@ -126,6 +129,7 @@ const data: Data = {
         },
         progress: 100.0,
         active: false,
+        parent: 'id1',
         _type: 'item',
         _links: {
           read: {
