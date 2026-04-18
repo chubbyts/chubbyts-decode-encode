@@ -24,8 +24,8 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * node: 20
- * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.1.0
- * [fast-xml-parser][3]: ^5.5.11
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.1.1
+ * [fast-xml-parser][3]: ^5.7.1
  * [qs][4]: ^6.15.1
  * [yaml][5]: ^2.8.3
 
@@ -34,7 +34,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^2.2.0
+npm i @chubbyts/chubbyts-decode-encode@^2.2.1
 ```
 
 ## Usage
