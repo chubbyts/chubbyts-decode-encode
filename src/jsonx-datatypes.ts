@@ -40,9 +40,4 @@ export type JsonxObjectNode = {
 };
 
 export type JsonxNode =
-  | JsonxNullNode
-  | JsonxBooleanNode
-  | JsonxNumberNode
-  | JsonxStringNode
-  | JsonxArrayNode
-  | JsonxObjectNode;
+  JsonxNullNode | JsonxBooleanNode | JsonxNumberNode | JsonxStringNode | JsonxArrayNode | JsonxObjectNode;
