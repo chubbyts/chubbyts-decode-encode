@@ -3,6 +3,7 @@ import type { Data } from '../data.js';
 export class DecodeError extends Error {
   public constructor(message: string, stack?: string) {
     super(message);
+    // oxlint-disable-next-line functional/immutable-data
     this.stack = stack;
   }
 }
