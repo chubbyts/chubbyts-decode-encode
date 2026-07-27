@@ -1,4 +1,4 @@
-import { XMLBuilder } from 'fast-xml-parser';
+import Builder from 'fast-xml-builder';
 import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
 import type { Data } from '../data.js';
 import { isArray, isBoolean, isNumber, isObject, isString, isNull } from '../data.js';
@@ -24,15 +24,12 @@ import { EncodeError } from './encoder.js';
 import type { TypeEncoder } from './encoder.js';
 
 const encodeHtmlEntities = (string: string) =>
-  string.replace(/[\u00A0-\u9999<>&]/g, (i) => '&#' + i.charCodeAt(0) + ';');
+  string.replace(/[\u00A0-\u9999<>&]/g, (i) => '&#' + i.codePointAt(0) + ';');
 
 const createXmlNode = (): Record<string, unknown> => {
   return {
-    '?xml': [
-      {
-        '#text': '',
-      },
-    ],
+    // Stryker disable next-line ArrayDeclaration: the XMLBuilder ignores the children of the xml processing instruction node
+    '?xml': [],
     ':@': {
       '@_version': '1.0',
       '@_encoding': 'UTF-8',
@@ -202,7 +199,7 @@ const createObjectNode = (
 };
 
 export const createJsonxTypeEncoder = (prettyPrint = false): TypeEncoder => {
-  const builder = new XMLBuilder({
+  const builder = new Builder({
     preserveOrder: true,
     ignoreAttributes: false,
     processEntities: false,

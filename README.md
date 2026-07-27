@@ -25,9 +25,10 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 
  * node: 22
  * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.2.0
- * [fast-xml-parser][3]: ^5.7.3
- * [qs][4]: ^6.15.1
- * [yaml][5]: ^2.8.4
+ * [fast-xml-builder][3]: ^1.3.0
+ * [fast-xml-parser][4]: ^5.7.3
+ * [qs][5]: ^6.15.1
+ * [yaml][6]: ^2.8.4
 
 ## Installation
 
@@ -179,6 +180,7 @@ const contentType = yamlTypeEncoder.contentType;
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-decode-encode
 [2]: https://www.npmjs.com/package/@chubbyts/chubbyts-throwable-to-error
-[3]: https://www.npmjs.com/package/fast-xml-parser
-[4]: https://www.npmjs.com/package/qs
-[5]: https://www.npmjs.com/package/yaml
+[3]: https://www.npmjs.com/package/fast-xml-builder
+[4]: https://www.npmjs.com/package/fast-xml-parser
+[5]: https://www.npmjs.com/package/qs
+[6]: https://www.npmjs.com/package/yaml

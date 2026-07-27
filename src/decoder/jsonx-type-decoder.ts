@@ -22,9 +22,7 @@ import { DecodeError } from './decoder.js';
 import type { TypeDecoder } from './decoder.js';
 
 const decodeHtmlEntities = (string: string) =>
-  string.replace(/&#\d+;/gm, (code) =>
-    String.fromCharCode((code.match(/\d+/) as RegExpMatchArray)[0] as unknown as number),
-  );
+  string.replace(/&#(\d+);/gm, (_, code: string) => String.fromCodePoint(Number(code)));
 
 const getNodeName = (node: JsonxNode): string | undefined => {
   return (node as Partial<WithName>)[':@']?.['@_name'];

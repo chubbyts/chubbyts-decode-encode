@@ -47,8 +47,8 @@ describe('createEncoder', () => {
       );
     }
 
-    expect(xmlTypeEncoderMocks.length).toBe(0);
-    expect(yamlTypeEncoderMocks.length).toBe(0);
+    expect(xmlTypeEncoderMocks).toHaveLength(0);
+    expect(yamlTypeEncoderMocks).toHaveLength(0);
   });
 
   test('with type encoders', async () => {
@@ -67,6 +67,6 @@ describe('createEncoder', () => {
 
     expect(encoder.encode(data, 'application/json')).toBe('test');
 
-    expect(jsonTypeEncoderMocks.length).toBe(0);
+    expect(jsonTypeEncoderMocks).toHaveLength(0);
   });
 });

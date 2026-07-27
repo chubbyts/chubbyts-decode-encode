@@ -26,7 +26,7 @@ const decodeValue = (value: ParsedValue): Data => {
     return false;
   }
 
-  const float = parseFloat(value); // handles integers as well
+  const float = Number.parseFloat(value); // handles integers as well
 
   if (float.toString() === value) {
     return float;

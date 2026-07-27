@@ -46,8 +46,8 @@ describe('createDecoder', () => {
       );
     }
 
-    expect(xmlTypeDecoderMocks.length).toBe(0);
-    expect(yamlTypeDecoderMocks.length).toBe(0);
+    expect(xmlTypeDecoderMocks).toHaveLength(0);
+    expect(yamlTypeDecoderMocks).toHaveLength(0);
   });
 
   test('with type decoders', async () => {
@@ -66,6 +66,6 @@ describe('createDecoder', () => {
 
     expect(decoder.decode('test', 'application/json')).toEqual({});
 
-    expect(jsonTypeDecoderMocks.length).toBe(0);
+    expect(jsonTypeDecoderMocks).toHaveLength(0);
   });
 });
