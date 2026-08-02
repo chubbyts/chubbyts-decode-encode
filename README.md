@@ -24,11 +24,11 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * node: 22
- * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.2.0
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.3.0
  * [fast-xml-builder][3]: ^1.3.0
- * [fast-xml-parser][4]: ^5.7.3
- * [qs][5]: ^6.15.1
- * [yaml][6]: ^2.8.4
+ * [fast-xml-parser][4]: ^5.10.1
+ * [qs][5]: ^6.15.3
+ * [yaml][6]: ^2.9.0
 
 ## Installation
 
