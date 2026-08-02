@@ -60,5 +60,14 @@ describe('data', () => {
     expect(isObject('')).toBe(false);
     expect(isObject([])).toBe(false);
     expect(isObject({})).toBe(true);
+    // oxlint-disable-next-line no-null-null
+    expect(isObject(Object.create(null))).toBe(true);
+    expect(isObject(JSON.parse('{"constructor":1}'))).toBe(true);
+    expect(isObject(new Date())).toBe(false);
+
+    // oxlint-disable-next-line no-extraneous-class
+    class SomeClass {}
+
+    expect(isObject(new SomeClass())).toBe(false);
   });
 });
