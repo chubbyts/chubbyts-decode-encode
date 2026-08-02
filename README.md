@@ -1,6 +1,6 @@
 # chubbyts-decode-encode
 
-[![CI](https://github.com/chubbyts/chubbyts-decode-encode/workflows/CI/badge.svg?branch=master)](https://github.com/chubbyts/chubbyts-decode-encode/actions?query=workflow%3ACI)
+[![CI](https://github.com/chubbyts/chubbyts-decode-encode/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/chubbyts/chubbyts-decode-encode/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/chubbyts/chubbyts-decode-encode/badge.svg?branch=master)](https://coveralls.io/github/chubbyts/chubbyts-decode-encode?branch=master)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fchubbyts%2Fchubbyts-decode-encode%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/chubbyts/chubbyts-decode-encode/master)
 [![npm-version](https://img.shields.io/npm/v/@chubbyts/chubbyts-decode-encode.svg)](https://www.npmjs.com/package/@chubbyts/chubbyts-decode-encode)
