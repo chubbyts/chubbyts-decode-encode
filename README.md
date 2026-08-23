@@ -24,6 +24,8 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * node: 22
+ * [@chubbyts/chubbyts-dic-config-factory][9]: ^1.0.0
+ * [@chubbyts/chubbyts-dic-types][7]: ^2.3.0
  * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.3.0
  * [fast-xml-builder][3]: ^1.3.0
  * [fast-xml-parser][4]: ^5.10.1
@@ -35,7 +37,7 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^2.4.1
+npm i @chubbyts/chubbyts-decode-encode@^2.5.1
 ```
 
 ## Usage
@@ -174,6 +176,71 @@ const contentType = yamlTypeEncoder.contentType;
 // contentTypes: 'application/x-yaml'
 ```
 
+### Service factories (chubbyts-dic-config)
+
+The package ships service factories (abstract factories built on [chubbyts-dic-config-factory][9]) for a [chubbyts-dic-config][8] (or any [chubbyts-dic-types][7] compatible) container within `@chubbyts/chubbyts-decode-encode/dist/service-factory`:
+
+ * `typeDecodersServiceFactory`: all shipped type decoders (json, jsonx, urlencoded, yaml)
+ * `typeEncodersServiceFactory`: all shipped type encoders (json, jsonx, urlencoded, yaml), `config.debug` enables pretty printing for json / jsonx
+ * `decoderServiceFactory`: the decoder, built from the `typeDecoders` service if registered, the shipped type decoders otherwise
+ * `encoderServiceFactory`: the encoder, built from the `typeEncoders` service if registered, the shipped type encoders otherwise
+
+```ts
+import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
+import { createContainerByConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
+import type { Decoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/decoder';
+import type { Encoder } from '@chubbyts/chubbyts-decode-encode/dist/encoder/encoder';
+import { decoderServiceFactory, encoderServiceFactory } from '@chubbyts/chubbyts-decode-encode/dist/service-factory';
+
+const container = createContainerByConfigFactory({
+  debug: false,
+  dependencies: {
+    factories: new Map<string, ConfigFactory>([
+      ['decoder', decoderServiceFactory()],
+      ['encoder', encoderServiceFactory()],
+    ]),
+  },
+})();
+
+const decoder = container.get<Decoder>('decoder');
+const encoder = container.get<Encoder>('encoder');
+```
+
+To replace the type decoders / encoders, register a `typeDecoders` / `typeEncoders` service:
+
+```ts
+import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/decoder';
+import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/json-type-decoder';
+
+const container = createContainerByConfigFactory({
+  dependencies: {
+    factories: new Map<string, ConfigFactory>([
+      ['decoder', decoderServiceFactory()],
+      ['typeDecoders', (): Array<TypeDecoder> => [createJsonTypeDecoder(), createCustomTypeDecoder()]],
+    ]),
+  },
+})();
+```
+
+#### With names
+
+To use different decoders / encoders in different parts of an application, the same factories can be registered multiple times with a name, which gets appended to each service id (`decoderapi`, `typeDecodersapi`, ...).
+
+```ts
+const container = createContainerByConfigFactory({
+  dependencies: {
+    factories: new Map<string, ConfigFactory>([
+      ['decoder', decoderServiceFactory()],
+      ['decoderapi', decoderServiceFactory('api')],
+      ['typeDecodersapi', (): Array<TypeDecoder> => [createJsonTypeDecoder()]],
+    ]),
+  },
+})();
+
+const decoder = container.get<Decoder>('decoder'); // all shipped type decoders
+const apiDecoder = container.get<Decoder>('decoderapi'); // json only
+```
+
 ## Copyright
 
 2026 Dominik Zogg
@@ -184,3 +251,6 @@ const contentType = yamlTypeEncoder.contentType;
 [4]: https://www.npmjs.com/package/fast-xml-parser
 [5]: https://www.npmjs.com/package/qs
 [6]: https://www.npmjs.com/package/yaml
+[7]: https://www.npmjs.com/package/@chubbyts/chubbyts-dic-types
+[8]: https://www.npmjs.com/package/@chubbyts/chubbyts-dic-config
+[9]: https://www.npmjs.com/package/@chubbyts/chubbyts-dic-config-factory
