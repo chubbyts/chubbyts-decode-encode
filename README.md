@@ -24,20 +24,20 @@ A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
 ## Requirements
 
  * node: 22
- * [@chubbyts/chubbyts-dic-config-factory][9]: ^1.0.0
- * [@chubbyts/chubbyts-dic-types][7]: ^2.3.0
- * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.3.0
- * [fast-xml-builder][3]: ^1.3.0
- * [fast-xml-parser][4]: ^5.10.1
- * [qs][5]: ^6.15.3
- * [yaml][6]: ^2.9.0
+ * [@chubbyts/chubbyts-dic-config-factory][9]: ^1.0.1
+ * [@chubbyts/chubbyts-dic-types][7]: ^2.3.1
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.3.4
+ * [fast-xml-builder][3]: ^1.3.1
+ * [fast-xml-parser][4]: ^5.11.2
+ * [qs][5]: ^6.16.1
+ * [yaml][6]: ^2.9.1
 
 ## Installation
 
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```ts
-npm i @chubbyts/chubbyts-decode-encode@^2.5.1
+npm i @chubbyts/chubbyts-decode-encode@^2.5.2
 ```
 
 ## Usage
