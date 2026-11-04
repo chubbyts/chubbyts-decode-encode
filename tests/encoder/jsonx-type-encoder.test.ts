@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
-import type { Data } from '../../src';
-import { EncodeError } from '../../src/encoder';
-import { createJsonxTypeEncoder } from '../../src/encoder/jsonx-type-encoder';
-import data from '../data';
+import type { Data } from '../../src/index.js';
+import { EncodeError } from '../../src/encoder/index.js';
+import { createJsonxTypeEncoder } from '../../src/encoder/jsonx-type-encoder.js';
+import data from '../data.js';
 
 describe('createJsonxTypeEncoder', () => {
   test('prettyPrint: false', async () => {

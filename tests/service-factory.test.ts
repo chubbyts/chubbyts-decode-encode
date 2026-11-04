@@ -3,14 +3,14 @@ import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock
 import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
 import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
 import { createContainerByConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
-import type { Decoder, TypeDecoder } from '../src/decoder/decoder';
-import type { Encoder, TypeEncoder } from '../src/encoder/encoder';
+import type { Decoder, TypeDecoder } from '../src/decoder/decoder.js';
+import type { Encoder, TypeEncoder } from '../src/encoder/encoder.js';
 import {
   decoderServiceFactory,
   encoderServiceFactory,
   typeDecodersServiceFactory,
   typeEncodersServiceFactory,
-} from '../src/service-factory';
+} from '../src/service-factory.js';
 
 const createCustomTypeDecoder = (contentType: string): TypeDecoder => ({
   decode: (encodedData: string) => ({ custom: encodedData }),

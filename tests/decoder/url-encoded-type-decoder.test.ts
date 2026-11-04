@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { createUrlEncodedTypeDecoder } from '../../src/decoder/url-encoded-type-decoder';
-import data from '../data';
+import { createUrlEncodedTypeDecoder } from '../../src/decoder/url-encoded-type-decoder.js';
+import data from '../data.js';
 
 describe('createUrlEncodedTypeDecoder', () => {
   test('data', () => {

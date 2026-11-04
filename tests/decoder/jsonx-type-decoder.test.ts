@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { DecodeError } from '../../src/decoder';
-import { createJsonxTypeDecoder } from '../../src/decoder/jsonx-type-decoder';
-import data from '../data';
+import { DecodeError } from '../../src/decoder/index.js';
+import { createJsonxTypeDecoder } from '../../src/decoder/jsonx-type-decoder.js';
+import data from '../data.js';
 
 describe('createJsonxTypeDecoder', () => {
   test('with data', () => {

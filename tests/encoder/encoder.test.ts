@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
-import type { TypeEncoder } from '../../src/encoder/encoder';
-import { createEncoder } from '../../src/encoder/encoder';
-import data from '../data';
+import type { TypeEncoder } from '../../src/encoder/encoder.js';
+import { createEncoder } from '../../src/encoder/encoder.js';
+import data from '../data.js';
 
 describe('createEncoder', () => {
   test('without type encoders', async () => {

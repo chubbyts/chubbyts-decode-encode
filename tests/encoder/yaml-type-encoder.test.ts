@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { createYamlTypeEncoder } from '../../src/encoder/yaml-type-encoder';
-import data from '../data';
+import { createYamlTypeEncoder } from '../../src/encoder/yaml-type-encoder.js';
+import data from '../data.js';
 
 describe('createYamlTypeEncoder', () => {
   test('with data', () => {

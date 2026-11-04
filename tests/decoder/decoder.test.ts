@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
-import type { TypeDecoder } from '../../src/decoder/decoder';
-import { createDecoder } from '../../src/decoder/decoder';
+import type { TypeDecoder } from '../../src/decoder/decoder.js';
+import { createDecoder } from '../../src/decoder/decoder.js';
 
 describe('createDecoder', () => {
   test('without type decoders', async () => {

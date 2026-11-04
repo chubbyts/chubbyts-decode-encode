@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { DecodeError } from '../../src/decoder';
-import { createYamlTypeDecoder } from '../../src/decoder/yaml-type-decoder';
-import data from '../data';
+import { DecodeError } from '../../src/decoder/index.js';
+import { createYamlTypeDecoder } from '../../src/decoder/yaml-type-decoder.js';
+import data from '../data.js';
 
 describe('createYamlTypeDecoder', () => {
   test('with data', () => {

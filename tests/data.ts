@@ -1,4 +1,4 @@
-import type { Data } from '../src';
+import type { Data } from '../src/index.js';
 
 const data: Data = {
   page: 1,

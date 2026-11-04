@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { isArray, isBoolean, isNull, isNumber, isObject, isString } from '../src/data';
+import { isArray, isBoolean, isNull, isNumber, isObject, isString } from '../src/data.js';
 
 describe('data', () => {
   test('isNull', async () => {

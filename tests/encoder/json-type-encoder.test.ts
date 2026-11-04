@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { createJsonTypeEncoder } from '../../src/encoder/json-type-encoder';
-import data from '../data';
+import { createJsonTypeEncoder } from '../../src/encoder/json-type-encoder.js';
+import data from '../data.js';
 
 describe('createJsonTypeEncoder', () => {
   test('prettyPrint: false', async () => {
