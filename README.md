@@ -38,11 +38,28 @@ Strings are decoded into plain data (objects, arrays, strings, numbers, booleans
 
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
-```ts
+```sh
 npm i @chubbyts/chubbyts-decode-encode@^2.5.2
 ```
 
 ## Usage
+
+### Data
+
+Every type decoder returns and every type encoder accepts `Data`, the json data model:
+
+```ts
+type Data = { [key: string]: Data } | Array<Data> | string | number | boolean | null;
+```
+
+The matching type guards `isNull`, `isBoolean`, `isNumber`, `isString`, `isArray` and `isObject` (plain objects only) can be imported from `@chubbyts/chubbyts-decode-encode/data`.
+
+```ts
+import { isObject } from '@chubbyts/chubbyts-decode-encode/data';
+
+isObject({ key: 'value' }); // true
+isObject(new Date()); // false
+```
 
 ### Decoder
 
@@ -53,11 +70,13 @@ import { createDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder'
 import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/json-type-decoder';
 
 const decoder = createDecoder([createJsonTypeDecoder()]);
-const data = decoder.decode('{"key":"value"}', 'application/json'); // or with 3th argument, for example { user: 'username1' }
-// data: {key: "value"}
+const data = decoder.decode('{"key":"value"}', 'application/json');
+// data: { key: 'value' }
 const contentTypes = decoder.contentTypes;
 // contentTypes: ['application/json']
 ```
+
+The `Decoder` type accepts an optional third argument `context` (`Record<string, unknown>`). The shipped decoder ignores it, it exists for custom `Decoder` implementations, for example one that decodes depending on the current user.
 
 #### createJsonTypeDecoder
 
@@ -66,7 +85,7 @@ import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/
 
 const jsonTypeDecoder = createJsonTypeDecoder();
 const data = jsonTypeDecoder.decode('{"key":"value"}');
-// data: {key: "value"}
+// data: { key: 'value' }
 const contentType = jsonTypeDecoder.contentType;
 // contentType: 'application/json'
 
@@ -86,7 +105,7 @@ const data = jsonxTypeDecoder.decode(`
   <json:string name="key">value</json:string>
 </json:object>
 `);
-// data: {key: "value"}
+// data: { key: 'value' }
 const contentType = jsonxTypeDecoder.contentType;
 // contentType: 'application/jsonx+xml'
 ```
@@ -98,9 +117,16 @@ import { createUrlEncodedTypeDecoder } from '@chubbyts/chubbyts-decode-encode/de
 
 const urlEncodedTypeDecoder = createUrlEncodedTypeDecoder();
 const data = urlEncodedTypeDecoder.decode('key=value');
-// data: {key: "value"}
+// data: { key: 'value' }
 const contentType = urlEncodedTypeDecoder.contentType;
 // contentType: 'application/x-www-form-urlencoded'
+```
+
+Values are converted to their json type: `true` and `false` become booleans, `null` becomes `null` and a value becomes a number only if the number converts back to the exact same string, so `01` or `1.0` stay strings.
+
+```ts
+const data = urlEncodedTypeDecoder.decode('a=1&b=true&c=null&d=01&e[]=x');
+// data: { a: 1, b: true, c: null, d: '01', e: ['x'] }
 ```
 
 #### createYamlTypeDecoder
@@ -110,7 +136,7 @@ import { createYamlTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/
 
 const yamlTypeDecoder = createYamlTypeDecoder();
 const data = yamlTypeDecoder.decode('key: value');
-// data: {key: "value"}
+// data: { key: 'value' }
 const contentType = yamlTypeDecoder.contentType;
 // contentType: 'application/x-yaml'
 
@@ -127,11 +153,13 @@ import { createEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder'
 import { createJsonTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/json-type-encoder';
 
 const encoder = createEncoder([createJsonTypeEncoder()]);
-const encodedData = encoder.encode({key: "value"}, 'application/json'); // or with 3th argument, for example { user: 'username1' }
-// encodedData: {"key":"value"}
+const encodedData = encoder.encode({ key: 'value' }, 'application/json');
+// encodedData: '{"key":"value"}'
 const contentTypes = encoder.contentTypes;
 // contentTypes: ['application/json']
 ```
+
+The `Encoder` type accepts an optional third argument `context` (`Record<string, unknown>`). The shipped encoder ignores it, it exists for custom `Encoder` implementations, for example one that encodes depending on the current user.
 
 #### createJsonTypeEncoder
 
@@ -139,10 +167,13 @@ const contentTypes = encoder.contentTypes;
 import { createJsonTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/json-type-encoder';
 
 const jsonTypeEncoder = createJsonTypeEncoder();
-const encodedData = jsonTypeEncoder.encode({key: "value"});
-// encodedData: {"key":"value"}
+const encodedData = jsonTypeEncoder.encode({ key: 'value' });
+// encodedData: '{"key":"value"}'
 const contentType = jsonTypeEncoder.contentType;
-// contentTypes: 'application/json'
+// contentType: 'application/json'
+
+// pretty printed
+const prettyJsonTypeEncoder = createJsonTypeEncoder(true);
 
 // any other json based content type, like `application/problem+json` (RFC 9457)
 const problemJsonTypeEncoder = createJsonTypeEncoder(false, 'application/problem+json');
@@ -153,14 +184,15 @@ const problemJsonTypeEncoder = createJsonTypeEncoder(false, 'application/problem
 ```ts
 import { createJsonxTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/jsonx-type-encoder';
 
-const jsonxTypeEncoder = createJsonxTypeEncoder();
-const encodedData = jsonxTypeEncoder.encode({key: "value"});
-// encodedData: <?xml version="1.0" encoding="UTF-8"?>
-// <json:object>
+const jsonxTypeEncoder = createJsonxTypeEncoder(true); // pretty printed, defaults to false
+const encodedData = jsonxTypeEncoder.encode({ key: 'value' });
+// encodedData:
+// <?xml version="1.0" encoding="UTF-8"?>
+// <json:object xsi:schemaLocation="http://www.datapower.com/schemas/json jsonx.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:json="http://www.ibm.com/xmlns/prod/2009/jsonx">
 //   <json:string name="key">value</json:string>
 // </json:object>
 const contentType = jsonxTypeEncoder.contentType;
-// contentTypes: 'application/jsonx+xml'
+// contentType: 'application/jsonx+xml'
 ```
 
 #### createUrlEncodedTypeEncoder
@@ -169,10 +201,10 @@ const contentType = jsonxTypeEncoder.contentType;
 import { createUrlEncodedTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/url-encoded-type-encoder';
 
 const urlEncodedTypeEncoder = createUrlEncodedTypeEncoder();
-const encodedData = urlEncodedTypeEncoder.encode({key: "value"});
-// encodedData: key=value
+const encodedData = urlEncodedTypeEncoder.encode({ a: 1, b: true, c: null, d: [1, 2] });
+// encodedData: 'a=1&b=true&c=null&d[0]=1&d[1]=2'
 const contentType = urlEncodedTypeEncoder.contentType;
-// contentTypes: 'application/x-www-form-urlencoded'
+// contentType: 'application/x-www-form-urlencoded'
 ```
 
 #### createYamlTypeEncoder
@@ -181,13 +213,66 @@ const contentType = urlEncodedTypeEncoder.contentType;
 import { createYamlTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/yaml-type-encoder';
 
 const yamlTypeEncoder = createYamlTypeEncoder();
-const encodedData = yamlTypeEncoder.encode({key: "value"});
-// encodedData: key: value
+const encodedData = yamlTypeEncoder.encode({ key: 'value' });
+// encodedData: 'key: value\n'
 const contentType = yamlTypeEncoder.contentType;
-// contentTypes: 'application/x-yaml'
+// contentType: 'application/x-yaml'
 
 // the registered media type `application/yaml` (RFC 9512)
 const officialYamlTypeEncoder = createYamlTypeEncoder('application/yaml');
+```
+
+### Custom type decoders / encoders
+
+A type decoder / encoder is a plain object with a `contentType` and a `decode` / `encode` function. This adds [NDJSON](https://github.com/ndjson/ndjson-spec), one json document per line:
+
+```ts
+import type { Data } from '@chubbyts/chubbyts-decode-encode/data';
+import { isArray } from '@chubbyts/chubbyts-decode-encode/data';
+import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+import { DecodeError, createDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+import type { TypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
+import { createEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
+
+const createNdjsonTypeDecoder = (): TypeDecoder => ({
+  decode: (encodedData: string): Data => {
+    try {
+      return encodedData
+        .split('\n')
+        .filter((line) => line.trim() !== '')
+        .map((line) => JSON.parse(line));
+    } catch (e) {
+      throw new DecodeError(e instanceof Error ? e.message : String(e));
+    }
+  },
+  contentType: 'application/x-ndjson',
+});
+
+const createNdjsonTypeEncoder = (): TypeEncoder => ({
+  encode: (data: Data): string => (isArray(data) ? data : [data]).map((item) => JSON.stringify(item)).join('\n'),
+  contentType: 'application/x-ndjson',
+});
+
+const decoder = createDecoder([createNdjsonTypeDecoder()]);
+const encoder = createEncoder([createNdjsonTypeEncoder()]);
+```
+
+### Errors
+
+* `decode` throws a `DecodeError` (`@chubbyts/chubbyts-decode-encode/decoder/decoder`) if the encoded data is invalid, for example a json syntax error. In a http context this usually maps to `400 Bad Request`.
+* `encode` of the jsonx type encoder throws an `EncodeError` (`@chubbyts/chubbyts-decode-encode/encoder/encoder`) if a value cannot be represented.
+* `decode` / `encode` of the decoder / encoder throw an `Error` if the content type is not supported, the message lists the supported content types. In a http context this usually maps to `415 Unsupported Media Type` (decoder) or `406 Not Acceptable` (encoder).
+
+```ts
+import { DecodeError } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+
+try {
+  decoder.decode('{', 'application/json');
+} catch (e) {
+  if (e instanceof DecodeError) {
+    // invalid request body
+  }
+}
 ```
 
 ### Service factories (chubbyts-dic-config)
@@ -220,7 +305,7 @@ const decoder = container.get<Decoder>('decoder');
 const encoder = container.get<Encoder>('encoder');
 ```
 
-To replace the type decoders / encoders, register a `typeDecoders` / `typeEncoders` service:
+To replace the type decoders / encoders, register a `typeDecoders` / `typeEncoders` service (`createNdjsonTypeDecoder` from [Custom type decoders / encoders](#custom-type-decoders--encoders)):
 
 ```ts
 import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
@@ -230,7 +315,7 @@ const container = createContainerByConfigFactory({
   dependencies: {
     factories: new Map<string, ConfigFactory>([
       ['decoder', decoderServiceFactory()],
-      ['typeDecoders', (): Array<TypeDecoder> => [createJsonTypeDecoder(), createCustomTypeDecoder()]],
+      ['typeDecoders', (): Array<TypeDecoder> => [createJsonTypeDecoder(), createNdjsonTypeDecoder()]],
     ]),
   },
 })();
