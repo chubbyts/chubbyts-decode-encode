@@ -67,6 +67,9 @@ const data = jsonTypeDecoder.decode('{"key":"value"}');
 // data: {key: "value"}
 const contentType = jsonTypeDecoder.contentType;
 // contentType: 'application/json'
+
+// any other json based content type, like `application/problem+json` (RFC 9457)
+const problemJsonTypeDecoder = createJsonTypeDecoder('application/problem+json');
 ```
 
 #### createJsonxTypeDecoder
@@ -108,6 +111,9 @@ const data = yamlTypeDecoder.decode('key: value');
 // data: {key: "value"}
 const contentType = yamlTypeDecoder.contentType;
 // contentType: 'application/x-yaml'
+
+// the registered media type `application/yaml` (RFC 9512)
+const officialYamlTypeDecoder = createYamlTypeDecoder('application/yaml');
 ```
 
 ### Encoder
@@ -135,6 +141,9 @@ const encodedData = jsonTypeEncoder.encode({key: "value"});
 // encodedData: {"key":"value"}
 const contentType = jsonTypeEncoder.contentType;
 // contentTypes: 'application/json'
+
+// any other json based content type, like `application/problem+json` (RFC 9457)
+const problemJsonTypeEncoder = createJsonTypeEncoder(false, 'application/problem+json');
 ```
 
 #### createJsonxTypeEncoder
@@ -174,14 +183,17 @@ const encodedData = yamlTypeEncoder.encode({key: "value"});
 // encodedData: key: value
 const contentType = yamlTypeEncoder.contentType;
 // contentTypes: 'application/x-yaml'
+
+// the registered media type `application/yaml` (RFC 9512)
+const officialYamlTypeEncoder = createYamlTypeEncoder('application/yaml');
 ```
 
 ### Service factories (chubbyts-dic-config)
 
 The package ships service factories (abstract factories built on [chubbyts-dic-config-factory][9]) for a [chubbyts-dic-config][8] (or any [chubbyts-dic-types][7] compatible) container within `@chubbyts/chubbyts-decode-encode/dist/service-factory`:
 
- * `typeDecodersServiceFactory`: all shipped type decoders (json, jsonx, urlencoded, yaml)
- * `typeEncodersServiceFactory`: all shipped type encoders (json, jsonx, urlencoded, yaml), `config.debug` enables pretty printing for json / jsonx
+ * `typeDecodersServiceFactory`: all shipped type decoders (json, jsonx, urlencoded, yaml as `application/x-yaml` and `application/yaml`)
+ * `typeEncodersServiceFactory`: all shipped type encoders (json, jsonx, urlencoded, yaml as `application/x-yaml` and `application/yaml`), `config.debug` enables pretty printing for json / jsonx
  * `decoderServiceFactory`: the decoder, built from the `typeDecoders` service if registered, the shipped type decoders otherwise
  * `encoderServiceFactory`: the encoder, built from the `typeEncoders` service if registered, the shipped type encoders otherwise
 

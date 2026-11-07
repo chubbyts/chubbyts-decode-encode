@@ -192,4 +192,12 @@ describe('createJsonTypeDecoder', () => {
       expect(e).toBeInstanceOf(DecodeError);
     }
   });
+
+  test('with custom content type', () => {
+    const decoder = createJsonTypeDecoder('application/problem+json');
+
+    expect(decoder.contentType).toBe('application/problem+json');
+
+    expect(decoder.decode('{"type":"about:blank","status":400}')).toEqual({ type: 'about:blank', status: 400 });
+  });
 });

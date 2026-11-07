@@ -18,7 +18,13 @@ type Config = {
 };
 
 export const typeDecodersServiceFactory = createAbstractFactory((): Array<TypeDecoder> => {
-  return [createJsonTypeDecoder(), createJsonxTypeDecoder(), createUrlEncodedTypeDecoder(), createYamlTypeDecoder()];
+  return [
+    createJsonTypeDecoder(),
+    createJsonxTypeDecoder(),
+    createUrlEncodedTypeDecoder(),
+    createYamlTypeDecoder(),
+    createYamlTypeDecoder('application/yaml'),
+  ];
 });
 
 export const decoderServiceFactory = createAbstractFactory((container: Container, { resolveDependency }): Decoder => {
@@ -33,6 +39,7 @@ export const typeEncodersServiceFactory = createAbstractFactory((container: Cont
     createJsonxTypeEncoder(debug),
     createUrlEncodedTypeEncoder(),
     createYamlTypeEncoder(),
+    createYamlTypeEncoder('application/yaml'),
   ];
 });
 

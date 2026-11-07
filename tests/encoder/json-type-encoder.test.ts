@@ -188,4 +188,20 @@ describe('createJsonTypeEncoder', () => {
       }"
     `);
   });
+
+  test('with custom content type', () => {
+    const encoder = createJsonTypeEncoder(false, 'application/problem+json');
+
+    expect(encoder.contentType).toBe('application/problem+json');
+
+    expect(encoder.encode({ type: 'about:blank', status: 400 })).toBe('{"type":"about:blank","status":400}');
+  });
+
+  test('with custom content type and prettyPrint: true', () => {
+    const encoder = createJsonTypeEncoder(true, 'application/problem+json');
+
+    expect(encoder.contentType).toBe('application/problem+json');
+
+    expect(encoder.encode({ status: 400 })).toBe('{\n    "status": 400\n}');
+  });
 });

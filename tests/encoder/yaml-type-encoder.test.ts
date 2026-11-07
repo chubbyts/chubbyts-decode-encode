@@ -134,4 +134,12 @@ describe('createYamlTypeEncoder', () => {
       "
     `);
   });
+
+  test('with custom content type', () => {
+    const encoder = createYamlTypeEncoder('application/yaml');
+
+    expect(encoder.contentType).toBe('application/yaml');
+
+    expect(encoder.encode({ key: 'value' })).toBe('key: value\n');
+  });
 });

@@ -149,4 +149,12 @@ _type: search`),
       expect(e).toBeInstanceOf(DecodeError);
     }
   });
+
+  test('with custom content type', () => {
+    const decoder = createYamlTypeDecoder('application/yaml');
+
+    expect(decoder.contentType).toBe('application/yaml');
+
+    expect(decoder.decode('key: value')).toEqual({ key: 'value' });
+  });
 });

@@ -4,7 +4,7 @@ import type { Data } from '../data.js';
 import { DecodeError } from './decoder.js';
 import type { TypeDecoder } from './decoder.js';
 
-export const createYamlTypeDecoder = (): TypeDecoder => {
+export const createYamlTypeDecoder = (contentType = 'application/x-yaml'): TypeDecoder => {
   return {
     decode: (encodedData: string): Data => {
       try {
@@ -15,6 +15,6 @@ export const createYamlTypeDecoder = (): TypeDecoder => {
         throw new DecodeError(error.message, error.stack);
       }
     },
-    contentType: 'application/x-yaml',
+    contentType,
   };
 };

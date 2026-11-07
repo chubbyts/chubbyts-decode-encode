@@ -3,7 +3,7 @@ import type { Data } from '../data.js';
 import type { TypeDecoder } from './decoder.js';
 import { DecodeError } from './decoder.js';
 
-export const createJsonTypeDecoder = (): TypeDecoder => {
+export const createJsonTypeDecoder = (contentType = 'application/json'): TypeDecoder => {
   return {
     decode: (encodedData: string): Data => {
       try {
@@ -14,6 +14,6 @@ export const createJsonTypeDecoder = (): TypeDecoder => {
         throw new DecodeError(error.message, error.stack);
       }
     },
-    contentType: 'application/json',
+    contentType,
   };
 };

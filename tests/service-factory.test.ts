@@ -34,6 +34,7 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
 
       expect(typeDecoders[0].decode('{"key":"value"}')).toEqual({ key: 'value' });
@@ -51,6 +52,7 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
 
       expect(containerMocks.length).toBe(0);
@@ -70,9 +72,11 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
 
       expect(decoder.decode('{"key":"value"}', 'application/json')).toEqual({ key: 'value' });
+      expect(decoder.decode('key: value', 'application/yaml')).toEqual({ key: 'value' });
 
       expect(containerMocks.length).toBe(0);
     });
@@ -107,6 +111,7 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
 
       expect(containerMocks.length).toBe(0);
@@ -143,6 +148,7 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
 
       expect(typeEncoders[0].encode({ key: 'value' })).toBe('{"key":"value"}');
@@ -203,9 +209,11 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
 
       expect(encoder.encode({ key: 'value' }, 'application/json')).toBe('{"key":"value"}');
+      expect(encoder.encode({ key: 'value' }, 'application/yaml')).toBe('key: value\n');
 
       expect(containerMocks.length).toBe(0);
     });
@@ -298,6 +306,7 @@ describe('service-factory', () => {
         'application/jsonx+xml',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
+        'application/yaml',
       ]);
       expect(container.get<Decoder>('decoderapi').contentTypes).toEqual(['application/custom']);
       expect(container.get<Encoder>('encoderapi').contentTypes).toEqual(['application/custom']);
