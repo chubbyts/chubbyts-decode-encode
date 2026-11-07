@@ -22,7 +22,7 @@ export const createNdjsonTypeDecoder = (contentType = 'application/jsonl', ignor
       const lines = encodedData.split('\n');
 
       // the line terminator after the last line does not start another line
-      return (lines[lines.length - 1] === '' ? lines.slice(0, -1) : lines).flatMap((line, index): Array<Data> => {
+      return (lines.at(-1) === '' ? lines.slice(0, -1) : lines).flatMap((line, index): Array<Data> => {
         if (EMPTY_LINE.test(line)) {
           if (ignoreEmptyLines) {
             return [];
