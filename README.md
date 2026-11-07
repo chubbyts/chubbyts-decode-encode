@@ -47,8 +47,8 @@ npm i @chubbyts/chubbyts-decode-encode@^2.5.2
 #### createDecoder
 
 ```ts
-import { createDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/decoder';
-import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/json-type-decoder';
+import { createDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/json-type-decoder';
 
 const decoder = createDecoder([createJsonTypeDecoder()]);
 const data = decoder.decode('{"key":"value"}', 'application/json'); // or with 3th argument, for example { user: 'username1' }
@@ -60,7 +60,7 @@ const contentTypes = decoder.contentTypes;
 #### createJsonTypeDecoder
 
 ```ts
-import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/json-type-decoder';
+import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/json-type-decoder';
 
 const jsonTypeDecoder = createJsonTypeDecoder();
 const data = jsonTypeDecoder.decode('{"key":"value"}');
@@ -75,7 +75,7 @@ const problemJsonTypeDecoder = createJsonTypeDecoder('application/problem+json')
 #### createJsonxTypeDecoder
 
 ```ts
-import { createJsonxTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/jsonx-type-decoder';
+import { createJsonxTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/jsonx-type-decoder';
 
 const jsonxTypeDecoder = createJsonxTypeDecoder();
 const data = jsonxTypeDecoder.decode(`
@@ -92,7 +92,7 @@ const contentType = jsonxTypeDecoder.contentType;
 #### createUrlEncodedTypeDecoder
 
 ```ts
-import { createUrlEncodedTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/url-encoded-type-decoder';
+import { createUrlEncodedTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/url-encoded-type-decoder';
 
 const urlEncodedTypeDecoder = createUrlEncodedTypeDecoder();
 const data = urlEncodedTypeDecoder.decode('key=value');
@@ -104,7 +104,7 @@ const contentType = urlEncodedTypeDecoder.contentType;
 #### createYamlTypeDecoder
 
 ```ts
-import { createYamlTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/yaml-type-decoder';
+import { createYamlTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/yaml-type-decoder';
 
 const yamlTypeDecoder = createYamlTypeDecoder();
 const data = yamlTypeDecoder.decode('key: value');
@@ -121,8 +121,8 @@ const officialYamlTypeDecoder = createYamlTypeDecoder('application/yaml');
 #### createEncoder
 
 ```ts
-import { createEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/encoder';
-import { createJsonTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/json-type-encoder';
+import { createEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
+import { createJsonTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/json-type-encoder';
 
 const encoder = createEncoder([createJsonTypeEncoder()]);
 const encodedData = encoder.encode({key: "value"}, 'application/json'); // or with 3th argument, for example { user: 'username1' }
@@ -134,7 +134,7 @@ const contentTypes = encoder.contentTypes;
 #### createJsonTypeEncoder
 
 ```ts
-import { createJsonTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/json-type-encoder';
+import { createJsonTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/json-type-encoder';
 
 const jsonTypeEncoder = createJsonTypeEncoder();
 const encodedData = jsonTypeEncoder.encode({key: "value"});
@@ -149,7 +149,7 @@ const problemJsonTypeEncoder = createJsonTypeEncoder(false, 'application/problem
 #### createJsonxTypeEncoder
 
 ```ts
-import { createJsonxTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/jsonx-type-encoder';
+import { createJsonxTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/jsonx-type-encoder';
 
 const jsonxTypeEncoder = createJsonxTypeEncoder();
 const encodedData = jsonxTypeEncoder.encode({key: "value"});
@@ -164,7 +164,7 @@ const contentType = jsonxTypeEncoder.contentType;
 #### createUrlEncodedTypeEncoder
 
 ```ts
-import { createUrlEncodedTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/url-encoded-type-encoder';
+import { createUrlEncodedTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/url-encoded-type-encoder';
 
 const urlEncodedTypeEncoder = createUrlEncodedTypeEncoder();
 const encodedData = urlEncodedTypeEncoder.encode({key: "value"});
@@ -176,7 +176,7 @@ const contentType = urlEncodedTypeEncoder.contentType;
 #### createYamlTypeEncoder
 
 ```ts
-import { createYamlTypeEncoder } from '@chubbyts/chubbyts-encode-encode/dist/encoder/yaml-type-encoder';
+import { createYamlTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/yaml-type-encoder';
 
 const yamlTypeEncoder = createYamlTypeEncoder();
 const encodedData = yamlTypeEncoder.encode({key: "value"});
@@ -190,7 +190,7 @@ const officialYamlTypeEncoder = createYamlTypeEncoder('application/yaml');
 
 ### Service factories (chubbyts-dic-config)
 
-The package ships service factories (abstract factories built on [chubbyts-dic-config-factory][9]) for a [chubbyts-dic-config][8] (or any [chubbyts-dic-types][7] compatible) container within `@chubbyts/chubbyts-decode-encode/dist/service-factory`:
+The package ships service factories (abstract factories built on [chubbyts-dic-config-factory][9]) for a [chubbyts-dic-config][8] (or any [chubbyts-dic-types][7] compatible) container within `@chubbyts/chubbyts-decode-encode/service-factory`:
 
  * `typeDecodersServiceFactory`: all shipped type decoders (json, jsonx, urlencoded, yaml as `application/x-yaml` and `application/yaml`)
  * `typeEncodersServiceFactory`: all shipped type encoders (json, jsonx, urlencoded, yaml as `application/x-yaml` and `application/yaml`), `config.debug` enables pretty printing for json / jsonx
@@ -200,9 +200,9 @@ The package ships service factories (abstract factories built on [chubbyts-dic-c
 ```ts
 import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
 import { createContainerByConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
-import type { Decoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/decoder';
-import type { Encoder } from '@chubbyts/chubbyts-decode-encode/dist/encoder/encoder';
-import { decoderServiceFactory, encoderServiceFactory } from '@chubbyts/chubbyts-decode-encode/dist/service-factory';
+import type { Decoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+import type { Encoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
+import { decoderServiceFactory, encoderServiceFactory } from '@chubbyts/chubbyts-decode-encode/service-factory';
 
 const container = createContainerByConfigFactory({
   debug: false,
@@ -221,8 +221,8 @@ const encoder = container.get<Encoder>('encoder');
 To replace the type decoders / encoders, register a `typeDecoders` / `typeEncoders` service:
 
 ```ts
-import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/decoder';
-import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/dist/decoder/json-type-decoder';
+import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+import { createJsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/json-type-decoder';
 
 const container = createContainerByConfigFactory({
   dependencies: {
