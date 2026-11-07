@@ -2,13 +2,15 @@
   "name": "@chubbyts/chubbyts-decode-encode",
   "type": "module",
   "version": "2.5.2",
-  "description": "A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.",
+  "description": "Decode and encode request/response bodies by content type: json, jsonx, url-encoded and yaml.",
   "keywords": [
     "chubbyts",
+    "content-type",
     "decode",
     "encode",
     "json",
     "jsonx",
+    "serializer",
     "url-encoded",
     "xml",
     "yaml"

@@ -19,7 +19,9 @@
 
 ## Description
 
-A simple decode/encode solution for json / jsonx / url-encoded / xml / yaml.
+Decode and encode request/response bodies by content type: json, jsonx, url-encoded and yaml.
+
+Strings are decoded into plain data (objects, arrays, strings, numbers, booleans and null) and encoded back. Each format can be registered under additional content types, for example `application/problem+json` or `application/yaml`.
 
 ## Requirements
 
