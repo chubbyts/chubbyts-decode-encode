@@ -39,7 +39,7 @@ describe('service-factory', () => {
 
       expect(typeDecoders[0].decode('{"key":"value"}')).toEqual({ key: 'value' });
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with name', () => {
@@ -55,7 +55,7 @@ describe('service-factory', () => {
         'application/yaml',
       ]);
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
   });
 
@@ -78,7 +78,7 @@ describe('service-factory', () => {
       expect(decoder.decode('{"key":"value"}', 'application/json')).toEqual({ key: 'value' });
       expect(decoder.decode('key: value', 'application/yaml')).toEqual({ key: 'value' });
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with registered type decoders', () => {
@@ -96,7 +96,7 @@ describe('service-factory', () => {
       expect(decoder.contentTypes).toEqual(['application/custom']);
       expect(decoder.decode('data', 'application/custom')).toEqual({ custom: 'data' });
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with name, without registered type decoders', () => {
@@ -114,7 +114,7 @@ describe('service-factory', () => {
         'application/yaml',
       ]);
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with name, with registered type decoders', () => {
@@ -131,7 +131,7 @@ describe('service-factory', () => {
 
       expect(decoder.contentTypes).toEqual(['application/custom']);
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
   });
 
@@ -154,7 +154,7 @@ describe('service-factory', () => {
       expect(typeEncoders[0].encode({ key: 'value' })).toBe('{"key":"value"}');
       expect(typeEncoders[1].encode({ key: 'value' })).not.toContain('\n');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with debug false', () => {
@@ -166,7 +166,7 @@ describe('service-factory', () => {
 
       expect(typeEncoders[0].encode({ key: 'value' })).toBe('{"key":"value"}');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with debug true', () => {
@@ -179,7 +179,7 @@ describe('service-factory', () => {
       expect(typeEncoders[0].encode({ key: 'value' })).toBe('{\n    "key": "value"\n}');
       expect(typeEncoders[1].encode({ key: 'value' })).toContain('\n');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with name', () => {
@@ -191,7 +191,7 @@ describe('service-factory', () => {
 
       expect(typeEncoders[0].encode({ key: 'value' })).toBe('{\n    "key": "value"\n}');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
   });
 
@@ -215,7 +215,7 @@ describe('service-factory', () => {
       expect(encoder.encode({ key: 'value' }, 'application/json')).toBe('{"key":"value"}');
       expect(encoder.encode({ key: 'value' }, 'application/yaml')).toBe('key: value\n');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with registered type encoders', () => {
@@ -233,7 +233,7 @@ describe('service-factory', () => {
       expect(encoder.contentTypes).toEqual(['application/custom']);
       expect(encoder.encode({ key: 'value' }, 'application/custom')).toBe('custom');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with name, without registered type encoders', () => {
@@ -246,7 +246,7 @@ describe('service-factory', () => {
 
       expect(encoder.encode({ key: 'value' }, 'application/json')).toBe('{\n    "key": "value"\n}');
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
 
     test('with name, with registered type encoders', () => {
@@ -263,7 +263,7 @@ describe('service-factory', () => {
 
       expect(encoder.contentTypes).toEqual(['application/custom']);
 
-      expect(containerMocks.length).toBe(0);
+      expect(containerMocks).toHaveLength(0);
     });
   });
 
