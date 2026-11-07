@@ -39,7 +39,7 @@ Strings are decoded into plain data (objects, arrays, strings, numbers, booleans
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```sh
-npm i @chubbyts/chubbyts-decode-encode@^2.5.2
+npm i @chubbyts/chubbyts-decode-encode@^2.6.0
 ```
 
 ## Usage

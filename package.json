@@ -1,7 +1,7 @@
 {
   "name": "@chubbyts/chubbyts-decode-encode",
   "type": "module",
-  "version": "2.5.2",
+  "version": "2.6.0",
   "description": "Decode and encode request/response bodies by content type: json, jsonx, url-encoded and yaml.",
   "keywords": [
     "chubbyts",
