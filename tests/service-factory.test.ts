@@ -32,6 +32,11 @@ describe('service-factory', () => {
       expect(typeDecoders.map((typeDecoder) => typeDecoder.contentType)).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',
@@ -50,6 +55,11 @@ describe('service-factory', () => {
       expect(typeDecoders.map((typeDecoder) => typeDecoder.contentType)).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',
@@ -70,6 +80,11 @@ describe('service-factory', () => {
       expect(decoder.contentTypes).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',
@@ -77,6 +92,11 @@ describe('service-factory', () => {
 
       expect(decoder.decode('{"key":"value"}', 'application/json')).toEqual({ key: 'value' });
       expect(decoder.decode('key: value', 'application/yaml')).toEqual({ key: 'value' });
+      expect(decoder.decode('{"key":"value1"}\n{"key":"value2"}\n{"key":"value3"}\n', 'application/x-ndjson')).toEqual([
+        { key: 'value1' },
+        { key: 'value2' },
+        { key: 'value3' },
+      ]);
 
       expect(containerMocks).toHaveLength(0);
     });
@@ -109,6 +129,11 @@ describe('service-factory', () => {
       expect(decoder.contentTypes).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',
@@ -146,6 +171,11 @@ describe('service-factory', () => {
       expect(typeEncoders.map((typeEncoder) => typeEncoder.contentType)).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',
@@ -207,6 +237,11 @@ describe('service-factory', () => {
       expect(encoder.contentTypes).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',
@@ -214,6 +249,7 @@ describe('service-factory', () => {
 
       expect(encoder.encode({ key: 'value' }, 'application/json')).toBe('{"key":"value"}');
       expect(encoder.encode({ key: 'value' }, 'application/yaml')).toBe('key: value\n');
+      expect(encoder.encode([{ key: 'value' }], 'application/x-ndjson')).toBe('{"key":"value"}\n');
 
       expect(containerMocks).toHaveLength(0);
     });
@@ -304,6 +340,11 @@ describe('service-factory', () => {
       expect(container.get<Decoder>('decoder').contentTypes).toEqual([
         'application/json',
         'application/jsonx+xml',
+        'application/jsonl',
+        'application/x-jsonl',
+        'text/jsonl',
+        'application/ndjson',
+        'application/x-ndjson',
         'application/x-www-form-urlencoded',
         'application/x-yaml',
         'application/yaml',

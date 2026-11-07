@@ -1,8 +1,8 @@
 {
   "name": "@chubbyts/chubbyts-decode-encode",
   "type": "module",
-  "version": "2.6.0",
-  "description": "Decode and encode request/response bodies by content type: json, jsonx, url-encoded and yaml.",
+  "version": "2.7.0",
+  "description": "Decode and encode request/response bodies by content type: json, jsonx, ndjson, url-encoded and yaml.",
   "keywords": [
     "chubbyts",
     "content-type",
@@ -10,6 +10,7 @@
     "encode",
     "json",
     "jsonx",
+    "ndjson",
     "serializer",
     "url-encoded",
     "xml",

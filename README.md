@@ -19,7 +19,7 @@
 
 ## Description
 
-Decode and encode request/response bodies by content type: json, jsonx, url-encoded and yaml.
+Decode and encode request/response bodies by content type: json, jsonx, ndjson, url-encoded and yaml.
 
 Strings are decoded into plain data (objects, arrays, strings, numbers, booleans and null) and encoded back. Each format can be registered under additional content types, for example `application/problem+json` or `application/yaml`.
 
@@ -39,7 +39,7 @@ Strings are decoded into plain data (objects, arrays, strings, numbers, booleans
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```sh
-npm i @chubbyts/chubbyts-decode-encode@^2.6.0
+npm i @chubbyts/chubbyts-decode-encode@^2.7.0
 ```
 
 ## Usage
@@ -109,6 +109,30 @@ const data = jsonxTypeDecoder.decode(`
 const contentType = jsonxTypeDecoder.contentType;
 // contentType: 'application/jsonx+xml'
 ```
+
+#### createNdjsonTypeDecoder
+
+[NDJSON](https://github.com/ndjson/ndjson-spec) / [JSON Lines](https://jsonlines.org): one json document per line, decoded into an array.
+
+```ts
+import { createNdjsonTypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/ndjson-type-decoder';
+
+const ndjsonTypeDecoder = createNdjsonTypeDecoder();
+const data = ndjsonTypeDecoder.decode('{"key":"value1"}\n{"key":"value2"}\n');
+// data: [{ key: 'value1' }, { key: 'value2' }]
+const contentType = ndjsonTypeDecoder.contentType;
+// contentType: 'application/jsonl'
+
+// any other ndjson / json lines content type, like `application/x-ndjson`
+const xNdjsonTypeDecoder = createNdjsonTypeDecoder('application/x-ndjson');
+
+// silently ignore empty lines
+const lenientNdjsonTypeDecoder = createNdjsonTypeDecoder('application/jsonl', true);
+```
+
+`\n` and `\r\n` line endings are accepted, the line terminator after the last line is optional. Empty lines (including lines with only json whitespace: space, tab, `\r`) are not valid json and throw a `DecodeError`, unless `ignoreEmptyLines` (second argument) is `true`. The `DecodeError` message starts with the line number, for example `Line 3: ...`.
+
+There is no registered media type for ndjson / json lines, so the service factories register all common ones: `application/jsonl`, `application/x-jsonl`, `text/jsonl`, `application/ndjson` and `application/x-ndjson`.
 
 #### createUrlEncodedTypeDecoder
 
@@ -195,6 +219,23 @@ const contentType = jsonxTypeEncoder.contentType;
 // contentType: 'application/jsonx+xml'
 ```
 
+#### createNdjsonTypeEncoder
+
+```ts
+import { createNdjsonTypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/ndjson-type-encoder';
+
+const ndjsonTypeEncoder = createNdjsonTypeEncoder();
+const encodedData = ndjsonTypeEncoder.encode([{ key: 'value1' }, { key: 'value2' }]);
+// encodedData: '{"key":"value1"}\n{"key":"value2"}\n'
+const contentType = ndjsonTypeEncoder.contentType;
+// contentType: 'application/jsonl'
+
+// any other ndjson / json lines content type, like `application/x-ndjson`
+const xNdjsonTypeEncoder = createNdjsonTypeEncoder('application/x-ndjson');
+```
+
+Every line, including the last one, is terminated by `\n`. Only arrays can be encoded, any other value throws an `EncodeError`.
+
 #### createUrlEncodedTypeEncoder
 
 ```ts
@@ -224,43 +265,40 @@ const officialYamlTypeEncoder = createYamlTypeEncoder('application/yaml');
 
 ### Custom type decoders / encoders
 
-A type decoder / encoder is a plain object with a `contentType` and a `decode` / `encode` function. This adds [NDJSON](https://github.com/ndjson/ndjson-spec), one json document per line:
+A type decoder / encoder is a plain object with a `contentType` and a `decode` / `encode` function. This adds `text/plain`, where the body is a single string:
 
 ```ts
 import type { Data } from '@chubbyts/chubbyts-decode-encode/data';
-import { isArray } from '@chubbyts/chubbyts-decode-encode/data';
+import { isString } from '@chubbyts/chubbyts-decode-encode/data';
 import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
-import { DecodeError, createDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
+import { createDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
 import type { TypeEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
-import { createEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
+import { EncodeError, createEncoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
 
-const createNdjsonTypeDecoder = (): TypeDecoder => ({
-  decode: (encodedData: string): Data => {
-    try {
-      return encodedData
-        .split('\n')
-        .filter((line) => line.trim() !== '')
-        .map((line) => JSON.parse(line));
-    } catch (e) {
-      throw new DecodeError(e instanceof Error ? e.message : String(e));
+const createTextTypeDecoder = (): TypeDecoder => ({
+  decode: (encodedData: string): Data => encodedData,
+  contentType: 'text/plain',
+});
+
+const createTextTypeEncoder = (): TypeEncoder => ({
+  encode: (data: Data): string => {
+    if (!isString(data)) {
+      throw new EncodeError(`Unsupported value: ${JSON.stringify(data)}, expected a string`);
     }
+
+    return data;
   },
-  contentType: 'application/x-ndjson',
+  contentType: 'text/plain',
 });
 
-const createNdjsonTypeEncoder = (): TypeEncoder => ({
-  encode: (data: Data): string => (isArray(data) ? data : [data]).map((item) => JSON.stringify(item)).join('\n'),
-  contentType: 'application/x-ndjson',
-});
-
-const decoder = createDecoder([createNdjsonTypeDecoder()]);
-const encoder = createEncoder([createNdjsonTypeEncoder()]);
+const decoder = createDecoder([createTextTypeDecoder()]);
+const encoder = createEncoder([createTextTypeEncoder()]);
 ```
 
 ### Errors
 
 * `decode` throws a `DecodeError` (`@chubbyts/chubbyts-decode-encode/decoder/decoder`) if the encoded data is invalid, for example a json syntax error. In a http context this usually maps to `400 Bad Request`.
-* `encode` of the jsonx type encoder throws an `EncodeError` (`@chubbyts/chubbyts-decode-encode/encoder/encoder`) if a value cannot be represented.
+* `encode` of the jsonx and ndjson type encoders throws an `EncodeError` (`@chubbyts/chubbyts-decode-encode/encoder/encoder`) if a value cannot be represented, for ndjson anything but an array.
 * `decode` / `encode` of the decoder / encoder throw an `Error` if the content type is not supported, the message lists the supported content types. In a http context this usually maps to `415 Unsupported Media Type` (decoder) or `406 Not Acceptable` (encoder).
 
 ```ts
@@ -279,8 +317,8 @@ try {
 
 The package ships service factories (abstract factories built on [chubbyts-dic-config-factory][9]) for a [chubbyts-dic-config][8] (or any [chubbyts-dic-types][7] compatible) container within `@chubbyts/chubbyts-decode-encode/service-factory`:
 
- * `typeDecodersServiceFactory`: all shipped type decoders (json, jsonx, urlencoded, yaml as `application/x-yaml` and `application/yaml`)
- * `typeEncodersServiceFactory`: all shipped type encoders (json, jsonx, urlencoded, yaml as `application/x-yaml` and `application/yaml`), `config.debug` enables pretty printing for json / jsonx
+ * `typeDecodersServiceFactory`: all shipped type decoders (json, jsonx, ndjson as `application/jsonl`, `application/x-jsonl`, `text/jsonl`, `application/ndjson` and `application/x-ndjson`, urlencoded, yaml as `application/x-yaml` and `application/yaml`)
+ * `typeEncodersServiceFactory`: all shipped type encoders (json, jsonx, ndjson as `application/jsonl`, `application/x-jsonl`, `text/jsonl`, `application/ndjson` and `application/x-ndjson`, urlencoded, yaml as `application/x-yaml` and `application/yaml`), `config.debug` enables pretty printing for json / jsonx
  * `decoderServiceFactory`: the decoder, built from the `typeDecoders` service if registered, the shipped type decoders otherwise
  * `encoderServiceFactory`: the encoder, built from the `typeEncoders` service if registered, the shipped type encoders otherwise
 
@@ -305,7 +343,7 @@ const decoder = container.get<Decoder>('decoder');
 const encoder = container.get<Encoder>('encoder');
 ```
 
-To replace the type decoders / encoders, register a `typeDecoders` / `typeEncoders` service (`createNdjsonTypeDecoder` from [Custom type decoders / encoders](#custom-type-decoders--encoders)):
+To replace the type decoders / encoders, register a `typeDecoders` / `typeEncoders` service (`createTextTypeDecoder` from [Custom type decoders / encoders](#custom-type-decoders--encoders)):
 
 ```ts
 import type { TypeDecoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
@@ -315,7 +353,7 @@ const container = createContainerByConfigFactory({
   dependencies: {
     factories: new Map<string, ConfigFactory>([
       ['decoder', decoderServiceFactory()],
-      ['typeDecoders', (): Array<TypeDecoder> => [createJsonTypeDecoder(), createNdjsonTypeDecoder()]],
+      ['typeDecoders', (): Array<TypeDecoder> => [createJsonTypeDecoder(), createTextTypeDecoder()]],
     ]),
   },
 })();
