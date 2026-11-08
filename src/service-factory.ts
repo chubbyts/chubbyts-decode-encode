@@ -1,5 +1,5 @@
-import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
-import { createAbstractFactory } from '@chubbyts/chubbyts-dic-config-factory/dist/dic-config-factory';
+import type { Container } from '@chubbyts/chubbyts-dic-types/container';
+import { createAbstractFactory } from '@chubbyts/chubbyts-dic-config-factory/dic-config-factory';
 import type { Decoder, TypeDecoder } from './decoder/decoder.js';
 import { createDecoder } from './decoder/decoder.js';
 import { createJsonTypeDecoder } from './decoder/json-type-decoder.js';

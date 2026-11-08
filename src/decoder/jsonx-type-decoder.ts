@@ -1,5 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
-import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/throwable-to-error';
 import type {
   JsonxArrayNode,
   JsonxBooleanNode,

@@ -26,9 +26,9 @@ Strings are decoded into plain data (objects, arrays, strings, numbers, booleans
 ## Requirements
 
  * node: 22
- * [@chubbyts/chubbyts-dic-config-factory][9]: ^1.0.1
- * [@chubbyts/chubbyts-dic-types][7]: ^2.3.1
- * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.3.4
+ * [@chubbyts/chubbyts-dic-config-factory][9]: ^1.1.0
+ * [@chubbyts/chubbyts-dic-types][7]: ^2.4.0
+ * [@chubbyts/chubbyts-throwable-to-error][2]: ^2.4.0
  * [fast-xml-builder][3]: ^1.3.1
  * [fast-xml-parser][4]: ^5.11.2
  * [qs][5]: ^6.16.1
@@ -39,7 +39,7 @@ Strings are decoded into plain data (objects, arrays, strings, numbers, booleans
 Through [NPM](https://www.npmjs.com) as [@chubbyts/chubbyts-decode-encode][1].
 
 ```sh
-npm i @chubbyts/chubbyts-decode-encode@^2.7.0
+npm i @chubbyts/chubbyts-decode-encode@^2.8.0
 ```
 
 ## Usage
@@ -323,8 +323,8 @@ The package ships service factories (abstract factories built on [chubbyts-dic-c
  * `encoderServiceFactory`: the encoder, built from the `typeEncoders` service if registered, the shipped type encoders otherwise
 
 ```ts
-import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
-import { createContainerByConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
+import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dic-config';
+import { createContainerByConfigFactory } from '@chubbyts/chubbyts-dic-config/dic-config';
 import type { Decoder } from '@chubbyts/chubbyts-decode-encode/decoder/decoder';
 import type { Encoder } from '@chubbyts/chubbyts-decode-encode/encoder/encoder';
 import { decoderServiceFactory, encoderServiceFactory } from '@chubbyts/chubbyts-decode-encode/service-factory';

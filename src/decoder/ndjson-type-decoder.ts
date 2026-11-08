@@ -1,4 +1,4 @@
-import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/dist/throwable-to-error';
+import { throwableToError } from '@chubbyts/chubbyts-throwable-to-error/throwable-to-error';
 import type { Data } from '../data.js';
 import type { TypeDecoder } from './decoder.js';
 import { DecodeError } from './decoder.js';
